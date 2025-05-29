@@ -14,6 +14,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -42,16 +44,7 @@ body {
 
 /* Basic "under construction" style for main content */
 main {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  color: #888;
-  padding: 2rem;
-  font-style: italic;
-  -webkit-user-select: none;
-  user-select: none;
+  height: 100rem;
 }
 
 html {
@@ -67,4 +60,12 @@ html {
 
 a {
   text-decoration: none;
+  color: black;
+}
+
+.homeTitles {
+  font-family: var(--font-katibeh);
+  font-size: 4.5rem;
+  text-align: center;
+  font-weight: 400;
 }
