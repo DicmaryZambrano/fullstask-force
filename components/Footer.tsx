@@ -7,8 +7,9 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import styles from "../styles/Footer.module.css";
+import FootNav from "./FootNav"
 
-export default function Footer() {
+export default function Footer({ categories }: { categories: { id: number; name: string }[] }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -69,7 +70,8 @@ export default function Footer() {
       </div>
 
       <div className={styles.linkMap}>
-        <div className={styles.column}>
+        <FootNav categories={categories}/>
+        {/*<div className={styles.column}>
           <h4>Categories</h4>
           <ul>
             <li>
@@ -89,6 +91,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
+        */}
         <div className={styles.column}>
           <h4>About</h4>
           <ul>
