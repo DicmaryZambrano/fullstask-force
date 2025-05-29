@@ -1,13 +1,20 @@
-import styles from "../styles/Footer.module.css";
+import styles from '../styles/Footer.module.css';
+import Link from 'next/link';
 
-export default function FootNav({ categories }: { categories: { id: number; name: string }[] }) {
+export default function FootNav({
+  categories,
+}: {
+  categories: { id: number; name: string }[];
+}) {
   return (
     <div className={styles.column}>
       <h4>Categories</h4>
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <a href={`/products?category=${category.name}`}>{category.name}</a>
+            <Link href={`/products?category=${category.name}`}>
+              {category.name}
+            </Link>
           </li>
         ))}
       </ul>
