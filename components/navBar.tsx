@@ -8,7 +8,6 @@ export default function NavBar({
 }) {
   return (
     <div>
-      <hr className={styles.gray} />
       <nav className={styles.links}>
         <ul>
           {categories.map((category) => (
@@ -20,7 +19,6 @@ export default function NavBar({
           ))}
         </ul>
       </nav>
-      <hr className={styles.gray} />
     </div>
   );
 }

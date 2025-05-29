@@ -1,4 +1,4 @@
-import NavBar from './navBar';
+import NavBar from './NavBar';
 import SearchingBar from './SearchingBar';
 
 export default function Header({
