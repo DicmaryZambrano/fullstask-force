@@ -33,4 +33,9 @@ main {
   font-style: italic;
   -webkit-user-select: none;
   user-select: none;
+  height: 80vh;
+}
+
+a {
+  text-decoration: none;
 }
