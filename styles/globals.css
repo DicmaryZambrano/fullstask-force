@@ -1,8 +1,27 @@
+/* Variables  */
+:root {
+  --primaryColorLight1: #f9b89f;
+  --primaryColorBase: #f18339;
+  --primaryColorDark1: #bb642a;
+  --primaryColorDark2: #87471c;
+
+  --neutralColorBase: #cac6c5;
+}
+
 /* Basic global reset and styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* With this the "rem" will be equal to 10px making the styling easier */
+}
+
+img {
+  max-width: 100%; /* This help to manage the images*/
+  display: block;
 }
 
 body {
@@ -33,4 +52,15 @@ main {
   font-style: italic;
   -webkit-user-select: none;
   user-select: none;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }

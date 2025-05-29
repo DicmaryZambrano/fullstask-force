@@ -1,0 +1,29 @@
+.headerNav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem 3rem;
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5rem;
+}
+
+.searchBar {
+  width: 40%;
+  border-radius: 0.8rem;
+  height: 3.5rem;
+  border: 2px solid;
+  padding: 1rem 4rem;
+  background: url('/icons/Search.svg') no-repeat right 0.8rem center;
+  background-size: 2.5rem 2.5rem;
+}
+
+.searchBar::placeholder {
+  font-style: italic;
+  font-weight: 100;
+  color: black;
+}
