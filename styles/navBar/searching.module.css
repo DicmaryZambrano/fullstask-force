@@ -25,5 +25,5 @@
 .searchBar::placeholder {
   font-style: italic;
   font-weight: 100;
-  color: black;
+  color: var(--neutralColorDark1);
 }

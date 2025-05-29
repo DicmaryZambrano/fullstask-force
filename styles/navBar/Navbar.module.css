@@ -1,0 +1,27 @@
+.links ul {
+  display: flex;
+  max-width: 90%;
+  height: 3.2rem;
+  margin: 0 auto;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-top: 2px solid var(--neutralColorBase);
+  border-bottom: 2px solid var(--neutralColorBase);
+}
+
+.links li a {
+  display: block;
+  transition: transform 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-family: var(--font--roboto);
+  color: black;
+  font-size: 1.2rem;
+}
+
+.links li a:hover {
+  transform: scale(1.1);
+}

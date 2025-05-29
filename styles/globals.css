@@ -6,6 +6,7 @@
   --primaryColorDark2: #87471c;
 
   --neutralColorBase: #cac6c5;
+  --neutralColorDark1: #a79e9c;
 }
 
 /* Basic global reset and styles */
@@ -26,7 +27,6 @@ img {
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9; /* light background */
   color: #333;
   min-height: 100vh;
   display: flex;

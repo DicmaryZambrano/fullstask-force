@@ -6,7 +6,7 @@ import styles from '@/styles/navBar/searching.module.css';
 export default function SearchingBar() {
   return (
     <div className={styles.headerNav}>
-      <Link href={'#'}>
+      <Link href={'./'}>
         <Image
           src={'/logos/companyLogo.svg'}
           alt='Company Logo, Hancrafted Haven, where creativity finds a home'
