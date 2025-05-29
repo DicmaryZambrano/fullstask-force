@@ -1,10 +1,15 @@
-import NavBar from "./Navbar"
+import NavBar from './NavBar';
+import SearchingBar from './SearchingBar';
 
-export default function Header({ categories }: { categories: { id: number; name: string }[] }) {
-
+export default function Header({
+  categories,
+}: {
+  categories: { id: number; name: string }[];
+}) {
   return (
     <header>
-      <NavBar categories={categories}/>
+      <SearchingBar />
+      <NavBar categories={categories} />
     </header>
   );
 }

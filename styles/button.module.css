@@ -1,0 +1,17 @@
+.button {
+  font-family: var(--font-roboto);
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  background-color: var(--primaryColorBase);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--primaryColorDark2);
+  color: white;
+}
