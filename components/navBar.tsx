@@ -1,4 +1,4 @@
-import styles from '@/styles/navBar/Navbar.module.css';
+import styles from '../styles/Navbar.module.css';
 import Link from 'next/link';
 
 export default function NavBar({
@@ -8,6 +8,7 @@ export default function NavBar({
 }) {
   return (
     <div>
+      <hr className={styles.gray} />
       <nav className={styles.links}>
         <ul>
           {categories.map((category) => (
@@ -19,6 +20,7 @@ export default function NavBar({
           ))}
         </ul>
       </nav>
+      <hr className={styles.gray} />
     </div>
   );
 }
