@@ -13,6 +13,10 @@
   border-bottom: 2px solid var(--neutralColorBase);
 }
 
+.links {
+  margin-bottom: 7rem;
+}
+
 .links li a {
   display: block;
   transition: transform 0.3s ease-in-out;
