@@ -22,7 +22,7 @@ export default function SearchingBar() {
       />
 
       <div className={styles.headerButtons}>
-        <Link href={'#'}>
+        <Link href={'/login'}>
           <Button buttonText='Sing Up' />
         </Link>
 

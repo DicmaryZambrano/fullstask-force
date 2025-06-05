@@ -1,5 +1,5 @@
-import NavBar from './NavBar';
-import SearchingBar from './SearchingBar';
+import NavBar from '@/components/header/NavBar';
+import SearchingBar from '@/components/header/SearchingBar';
 
 export default function Header({
   categories,

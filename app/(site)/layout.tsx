@@ -3,7 +3,7 @@ import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
 import React from 'react';
 import { roboto, katibeh } from '@/components/fonts';
-import { getCategories } from '../database/database';
+import { getCategories } from '@/database/database';
 
 export const metadata = {
   title: 'Handcrafted Haven',
