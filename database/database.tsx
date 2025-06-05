@@ -1,14 +1,21 @@
 'use server';
 import { neon } from '@neondatabase/serverless';
+import { randomUUID } from 'crypto'; // To generate a new UUID
+import { Product, ProductWithRating } from '../objects/types'; 
 
 const URL = process.env.DATABASE_URL as string;
 
 export async function getCategories() {
   const sql = neon(URL);
-  const result = await sql`SELECT id, name FROM categories`;
 
-  // Explicitly tell TypeScript that result is an array of { id: number; name: string }
-  return result as { id: number; name: string }[];
+  try {
+    const result = await sql`SELECT id, name FROM categories`;
+    return result as { id: number; name: string }[];
+  }
+  catch (error) {
+    console.error('Failed to fetch categories:', error);
+    throw error;
+  }
 }
 
 export async function getFeaturedCategories() {
@@ -46,6 +53,190 @@ export async function getFeaturedProducts(category: string) {
     }[];
   } catch (error) {
     console.error('Failed to fetch featured products:', error);
+    throw error;
+  }
+}
+
+/* Get all products by category with their average ratings */
+export async function getProductsByCategory(categoryId: string) {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`
+      SELECT 
+        p.id, 
+        p.name, 
+        p.price, 
+        p.image_url,
+        COALESCE(AVG(r.rating), 0) AS average_rating
+      FROM products p
+      LEFT JOIN reviews r ON p.id = r.product_id
+      WHERE p.category_id = ${categoryId}
+      GROUP BY p.id;
+    `;
+
+    return result;
+  } catch (error) {
+    console.error('Failed to fetch products by category with ratings:', error);
+    throw error;
+  }
+}
+
+/* Gets a set of 4 products with the average reviews of that product*/
+export async function getHomeProductsByCategory(categoryId: string): Promise<ProductWithRating[]> {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`
+      SELECT 
+        p.id, 
+        p.name, 
+        p.price, 
+        p.image_url,
+        COALESCE(AVG(r.rating), 0) AS average_rating
+      FROM products p
+      LEFT JOIN reviews r ON p.id = r.product_id
+      WHERE p.category_id = ${categoryId}
+      GROUP BY p.id
+      ORDER BY RANDOM()
+      LIMIT 4;
+    `;
+
+    return result as ProductWithRating[];
+  } catch (error) {
+    console.error('Failed to fetch featured products with ratings:', error);
+    throw error;
+  }
+}
+
+
+/* Gets all product information by id*/
+export async function getProductById(productId: string) {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`
+      SELECT 
+        id,
+        seller_id,
+        category_id,
+        name,
+        description,
+        price,
+        image_url,
+        created_at,
+        updated_at
+      FROM products
+      WHERE id = ${productId};
+    `;
+
+    return result.length > 0 ? result[0] : null;
+  } catch (error) {
+    console.error('Failed to fetch product by ID:', error);
+    throw error;
+  }
+}
+
+/* Get Reviews by Product Id */
+export async function getReviewsByProductId(productId: string) {
+  const sql = neon(URL);
+
+  try {
+    // Fetch all reviews + reviewer name
+    const reviews = await sql`
+      SELECT 
+        r.id,
+        r.rating,
+        r.comment,
+        r.created_at,
+        u.first_name AS user_first_name,
+        u.last_name AS user_last_name
+      FROM reviews r
+      JOIN users u ON r.customer_id = u.id
+      WHERE r.product_id = ${productId}
+      ORDER BY r.created_at DESC;
+    `;
+
+    // Calculate the average rating
+    const averageResult = await sql`
+      SELECT COALESCE(AVG(rating), 0) AS average_rating
+      FROM reviews
+      WHERE product_id = ${productId};
+    `;
+
+    const average_rating = parseFloat(averageResult[0].average_rating);
+
+    return {
+      average_rating,
+      reviews
+    };
+  } catch (error) {
+    console.error('Failed to fetch reviews with reviewer names:', error);
+    throw error;
+  }
+}
+
+/* CRUD for Products */
+export async function createProduct(product: Product) {
+  const sql = neon(URL);
+
+  const {
+    name,
+    description,
+    price,
+    image_url,
+    category_id,
+    seller_id = '42c43983-618a-4ceb-a423-aa570ff756ea', // default placeholder
+  } = product;
+
+  const id = randomUUID();
+  const timestamp = new Date();
+
+  try {
+    await sql`
+      INSERT INTO products (
+        id,
+        seller_id,
+        category_id,
+        name,
+        description,
+        price,
+        image_url,
+        created_at,
+        updated_at
+      ) VALUES (
+        ${id},
+        ${seller_id},
+        ${category_id},
+        ${name},
+        ${description},
+        ${price},
+        ${image_url},
+        ${timestamp},
+        ${timestamp}
+      );
+    `;
+
+    return { success: true, id };
+  } catch (error) {
+    console.error('Failed to create product:', error);
+    throw error;
+  }
+}
+
+/* Delete Product */
+export async function deleteProduct(productId: string) {
+  const sql = neon(URL);
+
+  try {
+    await sql`
+      DELETE FROM products
+      WHERE id = ${productId};
+    `;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to delete product:', error);
     throw error;
   }
 }

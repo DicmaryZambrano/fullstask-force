@@ -1,10 +1,30 @@
-import FeaturedCard from '@/components/products/featuredProdutcsCard';
+/*import FeaturedCard from '@/components/products/featuredProdutcsCard';*/
+import FeaturedCardClient from '@/components/products/featuredProdutcsCardClient'
+import { getCategories, getHomeProductsByCategory } from '@/database/database';
+import HomeCategorySection from '@/components/products/homeCategorySection';
 
-export default function Page() {
+export default async function Page() {
+  const categories = await getCategories();
+
+  const categoriesWithProducts = await Promise.all(
+    categories.map(async (category) => {
+      const products = await getHomeProductsByCategory(category.id.toString());
+      return { ...category, products };
+    })
+  );
+
   return (
     <main>
       <h1 className='homeTitles'>Featured Products</h1>
-      <FeaturedCard />
+      {/*<FeaturedCard />*/}
+      <FeaturedCardClient/>
+      {categoriesWithProducts.map((category) => (
+        <HomeCategorySection
+          key={category.id}
+          categoryName={category.name}
+          products={category.products}
+        />
+      ))}
     </main>
   );
 }
