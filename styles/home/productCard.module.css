@@ -1,0 +1,20 @@
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.details {
+  padding: 0.5rem;
+}
+
+.priceRating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.rating svg {
+  color: gold;
+}
