@@ -18,8 +18,8 @@ export default async function RootLayout({
   const categories = await getCategories();
 
   return (
-    <html lang='en' className={`${roboto.variable} ${katibeh.variable}`}>
-      <body>
+    <html lang='en'>
+      <body className={`${roboto.variable} ${katibeh.variable}`}>
         <Header categories={categories} />
         {children}
         <Footer categories={categories} />

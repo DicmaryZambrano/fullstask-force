@@ -13,10 +13,10 @@ export default async function LoginLayout({
 }) {
   const categories = await getCategories();
   return (
-    <html lang='en' className={`${roboto.variable} ${katibeh.variable}`}>
-      <body>
+    <html lang='en'>
+      <body className={`${roboto.variable} ${katibeh.variable}`}>
         <header className={styles.header}>
-          <Link href={'./'}>
+          <Link href={'/'}>
             <Image
               src={'/logos/companyLogo.svg'}
               alt='Company Logo, Hancrafted Haven, where creativity finds a home'
