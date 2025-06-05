@@ -1,4 +1,4 @@
-import Button from './actionButton';
+import Button from '../actionButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/navBar/searching.module.css';

@@ -6,7 +6,7 @@ import {
   FaTwitter,
   FaLinkedinIn,
 } from 'react-icons/fa';
-import styles from '../styles/Footer.module.css';
+import styles from '@/styles/Footer.module.css';
 import FootNav from './FootNav';
 import Link from 'next/link';
 
