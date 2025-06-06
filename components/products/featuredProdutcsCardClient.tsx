@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/products/featuredCard.module.css';
-import {Product, CategoryWithProducts} from '@/objects/types'
+import { Product, CategoryWithProducts } from '@/objects/types';
 
 export default function FeaturedCardClient() {
   const [categories, setCategories] = useState<CategoryWithProducts[]>([]);
@@ -23,16 +23,18 @@ export default function FeaturedCardClient() {
     <div className={`container ${styles.cardContainer}`}>
       {categories.map((category) => (
         <div key={category.id} className={styles.featuredCard}>
-          <h2 className={`homeTitles ${styles.featuredTitle}`}>{category.name}</h2>
+          <h2 className={`homeTitles ${styles.featuredTitle}`}>
+            {category.name}
+          </h2>
           <div className={styles.productGrid}>
             {category.products.map((product: Product) => (
               <article key={product.id}>
-                <Link href="#">
+                <Link href='#'>
                   <Image
                     src={product.image_url}
                     alt={`Image of ${product.name}`}
-                    width={150}
-                    height={150}
+                    width={131}
+                    height={101}
                   />
                   <p>{product.name}</p>
                 </Link>

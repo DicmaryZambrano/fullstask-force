@@ -32,8 +32,8 @@ export default async function FeaturedCard() {
                   <Image
                     src={product.image_url}
                     alt={`Image pf ${product.name}`}
-                    width={500}
-                    height={300}
+                    width={131}
+                    height={101}
                   />
                   <p>{product.name}</p>
                 </Link>
