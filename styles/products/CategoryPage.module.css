@@ -1,0 +1,69 @@
+/* styles/products/CategoryPage.module.css */
+
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Sidebar de filtros */
+.sidebar {
+  flex: 0 0 260px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+/* Grid de productos */
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+/* Wrapper alrededor de ProductCard */
+.cardWrapper {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cardWrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Forzar proporción de imagen */
+.cardWrapper img {
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .sidebar {
+    position: relative;
+    top: auto;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}

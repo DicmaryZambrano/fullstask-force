@@ -56,9 +56,8 @@ export async function getFeaturedProducts(category: string) {
     throw error;
   }
 }
-
 /* Get all products by category with their average ratings */
-export async function getProductsByCategory(categoryId: string) {
+export async function getProductsByCategory(categoryId: string): Promise<ProductWithRating[]> {
   const sql = neon(URL);
 
   try {
@@ -75,12 +74,13 @@ export async function getProductsByCategory(categoryId: string) {
       GROUP BY p.id;
     `;
 
-    return result;
+    return result as ProductWithRating[];
   } catch (error) {
     console.error('Failed to fetch products by category with ratings:', error);
     throw error;
   }
 }
+
 
 /* Gets a set of 4 products with the average reviews of that product*/
 export async function getHomeProductsByCategory(categoryId: string): Promise<ProductWithRating[]> {

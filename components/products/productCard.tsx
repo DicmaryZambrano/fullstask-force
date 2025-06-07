@@ -1,11 +1,12 @@
-import styles from '@/styles/home/productCard.module.css'
+import Link from 'next/link';
+import styles from '@/styles/home/productCard.module.css';
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
 import { ProductWithRating } from '@/objects/types';
 
 export default function ProductCard({ product }: { product: ProductWithRating }) {
   return (
-    <div className={styles.card}>
+    <Link href={`/product/${product.id}`} className={styles.card}>
       <Image src={product.image_url} alt={product.name} width={150} height={150} />
       <div className={styles.details}>
         <p className={styles.title}>{product.name}</p>
@@ -17,6 +18,6 @@ export default function ProductCard({ product }: { product: ProductWithRating })
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
