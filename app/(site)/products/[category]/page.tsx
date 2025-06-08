@@ -1,49 +1,88 @@
-// app/products/[category]/page.tsx
+'use client';
+import { useEffect, useState } from 'react';
 import { getCategories, getProductsByCategory } from '@/database/database';
-import { notFound } from 'next/navigation';
-import ProductCard from '@/components/products/productCard';
-import FiltersSidebar from '@/components/products/filtersSidebar';
+import ProductCardCategory from '@/components/products/ProductCardCategory';
+import FiltersSidebar from '@/components/products/FiltersSidebar';
 import { ProductWithRating } from '@/objects/types';
 import { slugify } from '@/lib/slugify';
 import styles from '@/styles/products/CategoryPage.module.css';
 
-interface Props {
-  params: Promise<{ category: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+function SkeletonLoader() {
+  return (
+    <div className={styles.skeletonContainer}>
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className={styles.skeletonItem}></div>
+      ))}
+    </div>
+  );
 }
 
-export default async function CategoryPage(props: Props) {
-  const params = await props.params;
+export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const [filters, setFilters] = useState({ minPrice: '', maxPrice: '', minRating: '', sortOrder: '' });
+  const [products, setProducts] = useState<ProductWithRating[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState<string | null>(null);
 
-  const categories = await getCategories();
+  useEffect(() => {
+    const fetchCategoryId = async () => {
+      const resolvedParams = await params;
+      const categories = await getCategories();
+      const currentCategory = categories.find(c => slugify(c.name) === resolvedParams.category);
+      setCategoryId(currentCategory ? String(currentCategory.id) : null);
+    };
+    fetchCategoryId();
+  }, [params]);
 
-  const currentCategory = categories.find(
-    (c) => slugify(c.name) === params.category
-  );
-
-  if (!currentCategory) return notFound();
-
-  const products = await getProductsByCategory(String(currentCategory.id));
+  useEffect(() => {
+    if (!categoryId) return;
+    const fetchFilteredProducts = async () => {
+      setLoading(true);
+      const fetchedProducts = await getProductsByCategory(categoryId);
+      let filtered = fetchedProducts
+        .filter(p => (!filters.minPrice || p.price >= parseFloat(filters.minPrice)))
+        .filter(p => (!filters.maxPrice || p.price <= parseFloat(filters.maxPrice)))
+        .filter(p => (!filters.minRating || p.average_rating >= parseFloat(filters.minRating)));
+      
+      switch (filters.sortOrder) {
+        case 'price-asc':
+          filtered.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-desc':
+          filtered.sort((a, b) => b.price - a.price);
+          break;
+        case 'rating-desc':
+          filtered.sort((a, b) => b.average_rating - a.average_rating);
+          break;
+        case 'name-asc':
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          filtered.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+      }
+      
+      setProducts(filtered);
+      setLoading(false);
+    };
+    fetchFilteredProducts();
+  }, [categoryId, filters]);
 
   return (
     <main className={styles.container}>
       <aside className={styles.sidebar}>
-        <FiltersSidebar />
+        <FiltersSidebar onFilterChange={setFilters} />
       </aside>
-      <section className={styles.grid}>
-        {products.map(product => (
-          <div key={product.id} className={styles.cardWrapper}>
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </section>
+      {loading ? (
+        <SkeletonLoader />
+      ) : (
+        <section className={styles.grid}>
+          {products.map(product => (
+            <div key={product.id} className={styles.cardWrapper}>
+              <ProductCardCategory product={product} />
+            </div>
+          ))}
+        </section>
+      )}
     </main>
   );
-}
-
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((c) => ({
-    category: slugify(c.name),
-  }));
 }
