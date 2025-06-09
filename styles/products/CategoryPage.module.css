@@ -1,12 +1,3 @@
-:root {
-  --primaryColorLight1: #f9b89f;
-  --primaryColorBase: #f18339;
-  --primaryColorDark1: #bb642a;
-  --primaryColorDark2: #87471c;
-  --neutralColorBase: #cac6c5;
-  --neutralColorDark1: #a79e9c;
-}
-
 .container {
   display: flex;
   gap: 2rem;
