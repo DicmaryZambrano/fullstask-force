@@ -38,7 +38,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
     const fetchFilteredProducts = async () => {
       setLoading(true);
       const fetchedProducts = await getProductsByCategory(categoryId);
-      let filtered = fetchedProducts
+      const filtered = fetchedProducts
         .filter(p => (!filters.minPrice || p.price >= parseFloat(filters.minPrice)))
         .filter(p => (!filters.maxPrice || p.price <= parseFloat(filters.maxPrice)))
         .filter(p => (!filters.minRating || p.average_rating >= parseFloat(filters.minRating)));

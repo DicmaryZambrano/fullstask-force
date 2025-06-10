@@ -2,14 +2,22 @@
 import { useState } from 'react';
 import styles from '@/styles/products/FiltersSidebar.module.css';
 
-export default function FiltersSidebar({ onFilterChange }: { onFilterChange: (filters: any) => void }) {
+type Filters = {
+  minPrice: string;
+  maxPrice: string;
+  minRating: string;
+  sortOrder: string;
+};
+
+export default function FiltersSidebar({ onFilterChange }: { onFilterChange: (filters: Filters) => void }) {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [minRating, setMinRating] = useState('');
   const [sortOrder, setSortOrder] = useState('');
 
   const applyFilters = () => {
-    onFilterChange({ minPrice, maxPrice, minRating, sortOrder });
+    const filters: Filters = { minPrice, maxPrice, minRating, sortOrder };
+    onFilterChange(filters);
   };
 
   return (
