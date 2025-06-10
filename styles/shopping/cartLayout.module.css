@@ -1,0 +1,16 @@
+.cartGrid {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 7rem;
+}
+
+@media (max-width: 768px) {
+  .cartGrid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}

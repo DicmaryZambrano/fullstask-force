@@ -1,0 +1,129 @@
+/* Bigger View */
+
+.productGrid {
+  display: grid;
+  grid-template-areas:
+    "image details"
+    "reviews details";
+  grid-template-columns: 1fr .5fr;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 7rem;
+}
+
+.imageSection {
+  position: relative;
+  grid-area: image;
+}
+
+.imageSection img {
+  display: block;
+  height: 300px;
+  width: auto;
+  border-radius: 1rem;
+  margin: 0 auto;
+}
+
+.details {
+  grid-area: details;
+}
+
+.reviews {
+  grid-area: reviews;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+.product-summary {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: solid 1px var(--neutralColorBase);
+}
+
+.product-summary .price {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: var(--primaryColorDark2);
+  margin-bottom: 0.5rem;
+}
+
+.product-summary h2 {
+  font-size: 2.75rem;
+  font-weight: 600;
+  margin: 0.5rem 0 1rem;
+}
+
+.reviews-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.review-box {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+}
+
+.review-box small {
+  color: #4e4e4e;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.product-details {
+  margin-bottom: 1.5rem;
+  border: solid 1px var(--neutralColorBase);
+  border-radius: 4px;
+  padding: 0.5rem 0.5rem 0;
+  transition: transform 0.3s ease;
+}
+
+.product-details:hover {
+  transform: scale(1.01);
+}
+
+.product-details summary {
+  margin: -0.5rem -0.5rem 0;
+  padding: 0.5rem;
+}
+
+.product-details[open] {
+  padding: 0.5rem;
+  transform: scale(1);
+}
+
+.product-details[open] summary {
+  border-bottom: solid 1px var(--neutralColorBase);
+  margin-bottom: 0.5rem;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .productGrid {
+    grid-template-areas:
+      "image"
+      "details"
+      "reviews";
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .add-to-cart {
+    font-size: 1.1rem;
+  }
+
+  .product-summary h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-summary .price {
+    font-size: 1.2rem;
+  }
+}

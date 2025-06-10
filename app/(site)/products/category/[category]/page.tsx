@@ -68,7 +68,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   }, [categoryId, filters]);
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <aside className={styles.sidebar}>
         <FiltersSidebar onFilterChange={setFilters} />
       </aside>
@@ -83,6 +83,6 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           ))}
         </section>
       )}
-    </main>
+    </div>
   );
 }

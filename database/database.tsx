@@ -1,7 +1,7 @@
 'use server';
 import { neon } from '@neondatabase/serverless';
 import { randomUUID } from 'crypto'; // To generate a new UUID
-import { Product, ProductWithRating } from '../objects/types'; 
+import { Product, ProductWithRatingAndSeller, ProductWithRating } from '../objects/types';
 
 const URL = process.env.DATABASE_URL as string;
 
@@ -81,9 +81,8 @@ export async function getProductsByCategory(categoryId: string): Promise<Product
   }
 }
 
-
-/* Gets a set of 4 products with the average reviews of that product*/
-export async function getHomeProductsByCategory(categoryId: string): Promise<ProductWithRating[]> {
+/* Gets a set of 4 products with the average reviews of that product and the name of the seller*/
+export async function getHomeProductsByCategory(categoryId: string): Promise<ProductWithRatingAndSeller[]> {
   const sql = neon(URL);
 
   try {
@@ -93,24 +92,26 @@ export async function getHomeProductsByCategory(categoryId: string): Promise<Pro
         p.name, 
         p.price, 
         p.image_url,
-        COALESCE(AVG(r.rating), 0) AS average_rating
+        COALESCE(AVG(r.rating), 0) AS average_rating,
+        u.first_name || ' ' || u.last_name AS seller_name
       FROM products p
       LEFT JOIN reviews r ON p.id = r.product_id
+      JOIN users u ON p.seller_id = u.id
       WHERE p.category_id = ${categoryId}
-      GROUP BY p.id
+      GROUP BY p.id, u.first_name, u.last_name
       ORDER BY RANDOM()
       LIMIT 4;
     `;
 
-    return result as ProductWithRating[];
+    return result as ProductWithRatingAndSeller[];
   } catch (error) {
-    console.error('Failed to fetch featured products with ratings:', error);
+    console.error('Failed to fetch featured products with ratings and seller:', error);
     throw error;
   }
 }
 
 
-/* Gets all product information by id*/
+/* Gets basic product information by id*/
 export async function getProductById(productId: string) {
   const sql = neon(URL);
 
@@ -118,8 +119,6 @@ export async function getProductById(productId: string) {
     const result = await sql`
       SELECT 
         id,
-        seller_id,
-        category_id,
         name,
         description,
         price,
@@ -137,6 +136,38 @@ export async function getProductById(productId: string) {
   }
 }
 
+/* Get full product details */
+export async function getFullProductById(productId: string) {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`
+      SELECT 
+        p.id,
+        p.name,
+        p.description,
+        p.price,
+        p.image_url,
+        p.category_id,
+        p.seller_id,
+        p.created_at,
+        p.updated_at,
+        u.first_name || ' ' || u.last_name AS seller_name,
+        COALESCE(AVG(r.rating), 0) AS average_rating
+      FROM products p
+      JOIN users u ON p.seller_id = u.id
+      LEFT JOIN reviews r ON p.id = r.product_id
+      WHERE p.id = ${productId}
+      GROUP BY p.id, u.first_name, u.last_name;
+    `;
+
+    return result.length > 0 ? result[0] : null;
+  } catch (error) {
+    console.error('Failed to fetch product with seller and rating:', error);
+    throw error;
+  }
+}
+
 /* Get Reviews by Product Id */
 export async function getReviewsByProductId(productId: string) {
   const sql = neon(URL);
@@ -149,8 +180,7 @@ export async function getReviewsByProductId(productId: string) {
         r.rating,
         r.comment,
         r.created_at,
-        u.first_name AS user_first_name,
-        u.last_name AS user_last_name
+        u.first_name || ' ' || u.last_name AS user_name
       FROM reviews r
       JOIN users u ON r.customer_id = u.id
       WHERE r.product_id = ${productId}
@@ -172,6 +202,26 @@ export async function getReviewsByProductId(productId: string) {
     };
   } catch (error) {
     console.error('Failed to fetch reviews with reviewer names:', error);
+    throw error;
+  }
+}
+
+/* Get a series of products */
+export async function getProductsByIds(productIds: string[]): Promise<Product[]> {
+  if (productIds.length === 0) return [];
+
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`
+      SELECT id, name, price, image_url, description, category_id
+      FROM products
+      WHERE id = ANY(${productIds});
+    `;
+
+    return result as Product[]; // <--- type assertion
+  } catch (error) {
+    console.error('Failed to fetch cart products:', error);
     throw error;
   }
 }

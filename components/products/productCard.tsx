@@ -1,10 +1,10 @@
-import Link from 'next/link';
 import styles from '@/styles/home/productCard.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { ProductWithRating } from '@/objects/types';
+import { ProductWithRatingAndSeller } from '@/objects/types';
 
-export default function ProductCard({ product }: { product: ProductWithRating }) {
+export default function ProductCard({ product }: { product: ProductWithRatingAndSeller }) {
   return (
     <Link href={`/product/${product.id}`} className={styles.card}>
       <Image src={product.image_url} alt={product.name} width={150} height={150} />
