@@ -1,54 +1,45 @@
 .card {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-
-  /* Asegura que el contenedor crezca */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  width: 277px;
 }
 
-/* Ajusta el espacio interno */
-.details {
-  padding: 1rem; /* antes 0.5rem */
+.productInfo {
+  padding: 0 1rem;
 }
 
-/* Título del producto */
-.title {
-  font-size: 1.25rem;       /* antes era el tamaño por defecto del navegador */
-  font-weight: 700;         /* más grueso */
-  margin: 0 0 0.5rem 0;     /* separa del siguiente elemento */
-  line-height: 1.2;
-  color: #222;              /* asegúrate de que contraste */
-}
-
-/* Texto del vendedor (si lo usas) */
-.seller {
-  font-size: 0.9rem;        /* un poco más pequeño */
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-
-/* Contenedor precio + rating */
-.priceRating {
+.ratingAndProName {
   display: flex;
+  align-items: start;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5rem;      /* más separación arriba */
+  gap: 3rem;
+  margin-top: 1.3rem;
 }
 
-/* Precio */
+.ratingAndProName p {
+  font-size: 1.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.seller {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 1.3rem;
+  margin-left: 0.6rem;
+}
+
 .price {
-  font-size: 1.4rem;        /* antes era 1rem, ahora más grande */
+  font-size: 2.3rem;
   font-weight: 800;
-  color: #000000;           /* color destacado */
+  margin-left: 0.6rem;
+  color: #000000;
 }
 
-/* Rating */
 .rating {
-  font-size: 1.1rem;        /* más legible */
+  font-size: 2rem;
   display: flex;
   align-items: center;
   gap: 0.25rem;

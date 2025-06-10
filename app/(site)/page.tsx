@@ -1,7 +1,8 @@
 /*import FeaturedCard from '@/components/products/featuredProdutcsCard';*/
-import FeaturedCardClient from '@/components/products/featuredProdutcsCardClient'
+import FeaturedCardClient from '@/components/products/featuredProdutcsCardClient';
 import { getCategories, getHomeProductsByCategory } from '@/database/database';
 import HomeCategorySection from '@/components/products/homeCategorySection';
+import styles from '@/styles/home/homeCategorySection.module.css';
 
 export default async function Page() {
   const categories = await getCategories();
@@ -17,7 +18,8 @@ export default async function Page() {
     <main>
       <h1 className='homeTitles'>Featured Products</h1>
       {/*<FeaturedCard />*/}
-      <FeaturedCardClient/>
+      <FeaturedCardClient />
+      <hr className={styles.hrHome}></hr>
       {categoriesWithProducts.map((category) => (
         <HomeCategorySection
           key={category.id}
