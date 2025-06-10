@@ -31,7 +31,7 @@ export default function Footer({
         <div className={styles.subscribe}>
           <h3 className={styles.title}>Crafted with Heart, Shared With You</h3>
           <h3 className={styles.subtitle}>
-            Subscribe for Weekly Drops, Maker Spotlights & More
+            Subscribe for Weekly Drops, Maker Spotlights & Morrrre
           </h3>
           <form className={styles.form} onSubmit={handleSubmit}>
             <input

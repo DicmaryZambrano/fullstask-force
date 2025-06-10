@@ -1,5 +1,7 @@
 import styles from '@/styles/navBar/Navbar.module.css';
 import Link from 'next/link';
+import { slugify } from '@/lib/slugify';
+
 
 export default function NavBar({
   categories,
@@ -12,7 +14,7 @@ export default function NavBar({
         {categories.map((category) => (
           <li key={category.id}>
             <Link
-              href={`/products?category=${encodeURIComponent(category.name)}`}
+              href={`/products/${slugify(category.name)}`}
             >
               {category.name}
             </Link>
