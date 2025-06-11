@@ -10,7 +10,7 @@ export default function ProductCard({
   product: ProductWithRatingAndSeller;
 }) {
   return (
-    <Link href={`/product/${product.id}`} className={styles.card}>
+    <Link href={`/products/${product.id}`} className={styles.card}>
       <Image
         src={product.image_url}
         alt={product.name}
