@@ -35,7 +35,7 @@ export default function SearchingBar() {
           />
         </Link>
 
-        <Link href={'#'}>
+        <Link href={'/cart'}>
           <Image
             src={'/icons/cart.svg'}
             alt='Cart Icon link'

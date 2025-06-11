@@ -1,13 +1,13 @@
-import Link from 'next/link';
 import styles from '@/styles/home/productCard.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { ProductWithRating } from '@/objects/types';
+import { ProductWithRatingAndSeller } from '@/objects/types';
 
 export default function ProductCard({
   product,
 }: {
-  product: ProductWithRating;
+  product: ProductWithRatingAndSeller;
 }) {
   return (
     <Link href={`/product/${product.id}`} className={styles.card}>

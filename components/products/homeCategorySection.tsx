@@ -4,14 +4,14 @@
 import styles from '@/styles/home/homeCategorySection.module.css';
 import ProductCard from './productCard';
 import Link from 'next/link';
-import { ProductWithRating } from '@/objects/types';
+import { ProductWithRatingAndSeller } from '@/objects/types';
 
 export default function HomeCategorySection({
   categoryName,
   products,
 }: {
   categoryName: string;
-  products: ProductWithRating[];
+  products: ProductWithRatingAndSeller[];
 }) {
   return (
     <section className={`container ${styles.section}`}>

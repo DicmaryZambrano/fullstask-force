@@ -21,7 +21,9 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${roboto.variable} ${katibeh.variable}`}>
         <Header categories={categories} />
-        {children}
+        <main>
+          {children}
+        </main>
         <Footer categories={categories} />
       </body>
     </html>

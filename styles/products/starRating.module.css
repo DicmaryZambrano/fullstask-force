@@ -1,0 +1,12 @@
+.starContainer {
+  display: inline-flex;
+  gap: 0.2em;
+}
+
+.filled {
+  color: #ffc107;
+}
+
+.empty {
+  color: #c5c6ca;
+}

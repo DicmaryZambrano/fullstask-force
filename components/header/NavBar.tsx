@@ -14,7 +14,7 @@ export default function NavBar({
         {categories.map((category) => (
           <li key={category.id}>
             <Link
-              href={`/products/${slugify(category.name)}`}
+              href={`/products/category/${slugify(category.name)}`}
             >
               {category.name}
             </Link>

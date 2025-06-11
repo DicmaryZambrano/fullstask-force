@@ -45,7 +45,11 @@ body {
 
 /* Basic "under construction" style for main content */
 main {
-  /* height: 100rem; */
+  min-height: 70vh;
+}
+
+hr {
+  color: var(--neutralColorBase);
 }
 
 html {

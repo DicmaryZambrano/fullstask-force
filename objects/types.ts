@@ -17,6 +17,10 @@ export interface Category {
   name: string;
 }
 
+export interface ProductWithRatingAndSeller extends ProductWithRating {
+  seller_name: string;
+}
+
 export interface CategoryWithProducts extends Category {
   products: Product[];
 }

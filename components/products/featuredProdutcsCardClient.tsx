@@ -28,7 +28,7 @@ export default function FeaturedCardClient() {
           <div className={styles.productGrid}>
             {category.products.map((product: Product) => (
               <article key={product.id}>
-                <Link href='#'>
+                <Link href={`/products/${product.id}`}>
                   <Image
                     src={product.image_url}
                     alt={`Image of ${product.name}`}
