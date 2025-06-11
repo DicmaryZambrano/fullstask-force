@@ -5,6 +5,7 @@ import styles from '@/styles/home/homeCategorySection.module.css';
 import ProductCard from './productCard';
 import Link from 'next/link';
 import { ProductWithRatingAndSeller } from '@/objects/types';
+import { slugify } from '@/lib/slugify';
 
 export default function HomeCategorySection({
   categoryName,
@@ -18,7 +19,7 @@ export default function HomeCategorySection({
       <div className={styles.category}>
         <h2 className={styles.h2}>{categoryName}</h2>
         <Link
-          href={`/products?category=${categoryName}`}
+          href={`/products/category/${slugify(categoryName)}`}
           className={styles.seeAllLink}
         >
           See all
