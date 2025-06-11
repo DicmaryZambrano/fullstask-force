@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { Product } from '@/objects/types';
+import type { Product } from '@/types/types';
 import CartItem from './cartItem';
 import CartSummary from './cartSummary';
 import styles from '@/styles/shopping/cartLayout.module.css';
@@ -16,9 +16,9 @@ export default function CartWrapper() {
       fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: cart })
+        body: JSON.stringify({ ids: cart }),
       })
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(setCartProducts)
         .catch(console.error);
     } else {
@@ -43,7 +43,11 @@ export default function CartWrapper() {
         <h2>Your Items</h2>
         {cartProducts.length > 0 ? (
           cartProducts.map((product) => (
-            <CartItem key={product.id} product={product} onRemove={handleRemove} />
+            <CartItem
+              key={product.id}
+              product={product}
+              onRemove={handleRemove}
+            />
           ))
         ) : (
           <p>Your cart is empty.</p>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/products/featuredCard.module.css';
-import { Product, CategoryWithProducts } from '@/objects/types';
+import { Product, CategoryWithProducts } from '@/types/types';
 
 export default function FeaturedCardClient() {
   const [categories, setCategories] = useState<CategoryWithProducts[]>([]);

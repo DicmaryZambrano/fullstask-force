@@ -1,9 +1,22 @@
+'use client';
+
 import Button from '@/components/actionButton';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import styles from '@/styles/login/login.module.css';
+import { useActionState } from 'react';
+import { authenticate } from '@/lib/actions';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined
+  );
+
   return (
     <main>
       <div className={`container ${styles.loginContainer}`}>
@@ -18,20 +31,35 @@ export default function LoginPage() {
         </div>
         <div className={styles.formContainer}>
           <h2 className={styles.h2}>Hellou Again!</h2>
-          <form action='' className={styles.form}>
+          <form action={formAction} className={styles.form}>
             <input
               type='email'
+              name='email'
               placeholder='Enter your email'
               required
               className={styles.input}
             />
             <input
               type='password'
+              name='password'
               placeholder='Enter your password'
               required
               className={styles.input}
             />
-            <Button buttonText='Sing in' type='submit' />
+            <input type='hidden' name='redirectTo' value={callbackUrl} />
+            <Button
+              buttonText='Sing in'
+              type='submit'
+              arial-disabled={isPending}
+            />
+            <div>
+              {errorMessage && (
+                <>
+                  <ExclamationCircleIcon />
+                  <p>{errorMessage}</p>
+                </>
+              )}
+            </div>
           </form>
           <div className={styles.divider}>
             <hr className={styles.hr} />

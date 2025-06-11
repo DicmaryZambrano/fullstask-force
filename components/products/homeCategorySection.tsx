@@ -4,7 +4,7 @@
 import styles from '@/styles/home/homeCategorySection.module.css';
 import ProductCard from './productCard';
 import Link from 'next/link';
-import { ProductWithRatingAndSeller } from '@/objects/types';
+import { ProductWithRatingAndSeller } from '@/types/types';
 import { slugify } from '@/lib/slugify';
 
 export default function HomeCategorySection({

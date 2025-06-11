@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { signOut } from '@/auth';
 import Image from 'next/image';
+import Button from '../actionButton';
 
 export default function SideNav() {
   return (
@@ -13,6 +15,15 @@ export default function SideNav() {
             height={68}
           />
         </Link>
+
+        <form
+          action={async () => {
+            'use server';
+            await signOut({ redirectTo: '/' });
+          }}
+        >
+          <Button buttonText='Sign Out' type='submit' />
+        </form>
       </div>
     </aside>
   );

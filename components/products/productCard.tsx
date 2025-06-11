@@ -2,7 +2,7 @@ import styles from '@/styles/home/productCard.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { ProductWithRatingAndSeller } from '@/objects/types';
+import { ProductWithRatingAndSeller } from '@/types/types';
 
 export default function ProductCard({
   product,

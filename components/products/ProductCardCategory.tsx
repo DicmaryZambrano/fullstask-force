@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
-import { ProductWithRating } from '@/objects/types';
+import { ProductWithRating } from '@/types/types';
 import styles from '@/styles/products/productCardCategory.module.css';
 
 export default function ProductCardCategory({

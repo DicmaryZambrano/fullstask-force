@@ -1,7 +1,11 @@
 'use server';
 import { neon } from '@neondatabase/serverless';
-import { randomUUID } from 'crypto'; // To generate a new UUID
-import { Product, ProductWithRatingAndSeller, ProductWithRating } from '../objects/types';
+import {
+  Product,
+  ProductWithRatingAndSeller,
+  ProductWithRating,
+  User,
+} from '../types/types';
 
 const URL = process.env.DATABASE_URL as string;
 
@@ -11,8 +15,7 @@ export async function getCategories() {
   try {
     const result = await sql`SELECT id, name FROM categories`;
     return result as { id: number; name: string }[];
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Failed to fetch categories:', error);
     throw error;
   }
@@ -57,7 +60,9 @@ export async function getFeaturedProducts(category: string) {
   }
 }
 /* Get all products by category with their average ratings */
-export async function getProductsByCategory(categoryId: string): Promise<ProductWithRating[]> {
+export async function getProductsByCategory(
+  categoryId: string
+): Promise<ProductWithRating[]> {
   const sql = neon(URL);
 
   try {
@@ -82,7 +87,9 @@ export async function getProductsByCategory(categoryId: string): Promise<Product
 }
 
 /* Gets a set of 4 products with the average reviews of that product and the name of the seller*/
-export async function getHomeProductsByCategory(categoryId: string): Promise<ProductWithRatingAndSeller[]> {
+export async function getHomeProductsByCategory(
+  categoryId: string
+): Promise<ProductWithRatingAndSeller[]> {
   const sql = neon(URL);
 
   try {
@@ -105,11 +112,13 @@ export async function getHomeProductsByCategory(categoryId: string): Promise<Pro
 
     return result as ProductWithRatingAndSeller[];
   } catch (error) {
-    console.error('Failed to fetch featured products with ratings and seller:', error);
+    console.error(
+      'Failed to fetch featured products with ratings and seller:',
+      error
+    );
     throw error;
   }
 }
-
 
 /* Gets basic product information by id*/
 export async function getProductById(productId: string) {
@@ -198,7 +207,7 @@ export async function getReviewsByProductId(productId: string) {
 
     return {
       average_rating,
-      reviews
+      reviews,
     };
   } catch (error) {
     console.error('Failed to fetch reviews with reviewer names:', error);
@@ -207,7 +216,9 @@ export async function getReviewsByProductId(productId: string) {
 }
 
 /* Get a series of products */
-export async function getProductsByIds(productIds: string[]): Promise<Product[]> {
+export async function getProductsByIds(
+  productIds: string[]
+): Promise<Product[]> {
   if (productIds.length === 0) return [];
 
   const sql = neon(URL);
@@ -239,7 +250,7 @@ export async function createProduct(product: Product) {
     seller_id = '42c43983-618a-4ceb-a423-aa570ff756ea', // default placeholder
   } = product;
 
-  const id = randomUUID();
+  const id = crypto.randomUUID();
   const timestamp = new Date();
 
   try {
@@ -287,6 +298,20 @@ export async function deleteProduct(productId: string) {
     return { success: true };
   } catch (error) {
     console.error('Failed to delete product:', error);
+    throw error;
+  }
+}
+
+// Get a user from the database using the email as a search parameter
+
+export async function getUSerByEmail(email: string): Promise<User | null> {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`SELECT * FROM public.users WHERE email = ${email}`;
+    return (result[0] as User) ?? null;
+  } catch (error) {
+    console.error('Failed to get the user', error);
     throw error;
   }
 }

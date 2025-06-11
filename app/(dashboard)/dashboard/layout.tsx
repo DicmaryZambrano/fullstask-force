@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
-// import Link from 'next/link';
-// import Image from 'next/image';
+import SideNav from '@/components/dashboard/sidenav';
 import { roboto, katibeh } from '@/components/fonts';
 
 export default async function LoginLayout({
@@ -12,7 +11,7 @@ export default async function LoginLayout({
     <html lang='en'>
       <body className={`${roboto.variable} ${katibeh.variable}`}>
         <div>
-          {/* <SideNav /> */}
+          <SideNav />
           <main>{children}</main>
         </div>
       </body>

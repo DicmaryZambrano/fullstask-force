@@ -24,3 +24,15 @@ export interface ProductWithRatingAndSeller extends ProductWithRating {
 export interface CategoryWithProducts extends Category {
   products: Product[];
 }
+
+export interface User {
+  id: string;
+  email: string;
+  hashed_password: string;
+  profile_picture_url: string;
+  role?: 'customer' | 'seller';
+  first_name: string;
+  last_name: string;
+  address?: string;
+  phone_number?: string;
+}

@@ -1,15 +1,16 @@
 .headerNav {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 2rem 3rem;
+  gap: 3.5rem;
 }
 
 .headerButtons {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 5rem;
+  gap: 3.5rem;
 }
 
 .searchBar {
@@ -26,4 +27,32 @@
   font-style: italic;
   font-weight: 100;
   color: var(--neutralColorDark1);
+}
+
+.userWelcome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userWelcome div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.userWelcome div span {
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+
+.userWelcome div a {
+  text-decoration: underline;
+  font-size: 1.1rem;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
 }
