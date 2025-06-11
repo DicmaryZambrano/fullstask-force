@@ -1,0 +1,35 @@
+.hrHome {
+  width: 85%;
+  margin: 8rem auto;
+  color: var(--neutralColorBase);
+  border: 1px solid;
+}
+
+.section {
+  margin: 0 auto;
+  margin-bottom: 9rem;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.h2 {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 4.5rem;
+}
+
+.seeAllLink {
+  font-size: 1.6rem;
+  margin-right: 3rem;
+  text-decoration: underline;
+}
+
+.ProductFlex {
+  display: flex;
+  gap: 3rem;
+}

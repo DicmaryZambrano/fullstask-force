@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getCategories, getProductsByCategory } from '@/database/database';
 import ProductCardCategory from '@/components/products/ProductCardCategory';
 import FiltersSidebar from '@/components/products/FiltersSidebar';
-import { ProductWithRating } from '@/objects/types';
+import { ProductWithRating } from '@/types/types';
 import { slugify } from '@/lib/slugify';
 import styles from '@/styles/products/CategoryPage.module.css';
 
@@ -17,8 +17,17 @@ function SkeletonLoader() {
   );
 }
 
-export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
-  const [filters, setFilters] = useState({ minPrice: '', maxPrice: '', minRating: '', sortOrder: '' });
+export default function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const [filters, setFilters] = useState({
+    minPrice: '',
+    maxPrice: '',
+    minRating: '',
+    sortOrder: '',
+  });
   const [products, setProducts] = useState<ProductWithRating[]>([]);
   const [loading, setLoading] = useState(true);
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -27,7 +36,9 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
     const fetchCategoryId = async () => {
       const resolvedParams = await params;
       const categories = await getCategories();
-      const currentCategory = categories.find(c => slugify(c.name) === resolvedParams.category);
+      const currentCategory = categories.find(
+        (c) => slugify(c.name) === resolvedParams.category
+      );
       setCategoryId(currentCategory ? String(currentCategory.id) : null);
     };
     fetchCategoryId();
@@ -39,10 +50,18 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
       setLoading(true);
       const fetchedProducts = await getProductsByCategory(categoryId);
       const filtered = fetchedProducts
-        .filter(p => (!filters.minPrice || p.price >= parseFloat(filters.minPrice)))
-        .filter(p => (!filters.maxPrice || p.price <= parseFloat(filters.maxPrice)))
-        .filter(p => (!filters.minRating || p.average_rating >= parseFloat(filters.minRating)));
-      
+        .filter(
+          (p) => !filters.minPrice || p.price >= parseFloat(filters.minPrice)
+        )
+        .filter(
+          (p) => !filters.maxPrice || p.price <= parseFloat(filters.maxPrice)
+        )
+        .filter(
+          (p) =>
+            !filters.minRating ||
+            p.average_rating >= parseFloat(filters.minRating)
+        );
+
       switch (filters.sortOrder) {
         case 'price-asc':
           filtered.sort((a, b) => a.price - b.price);
@@ -60,7 +79,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           filtered.sort((a, b) => b.name.localeCompare(a.name));
           break;
       }
-      
+
       setProducts(filtered);
       setLoading(false);
     };
@@ -76,7 +95,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
         <SkeletonLoader />
       ) : (
         <section className={styles.grid}>
-          {products.map(product => (
+          {products.map((product) => (
             <div key={product.id} className={styles.cardWrapper}>
               <ProductCardCategory product={product} />
             </div>
