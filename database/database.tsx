@@ -304,14 +304,14 @@ export async function deleteProduct(productId: string) {
 
 // Get a user from the database using the email as a search parameter
 
-export async function getUSerByEmail(email: string): Promise<User | null> {
+export async function getUserByEmail(email: string): Promise<User | null> {
   const sql = neon(URL);
 
   try {
     const result = await sql`SELECT * FROM public.users WHERE email = ${email}`;
     return (result[0] as User) ?? null;
   } catch (error) {
-    console.error('Failed to get the user', error);
+    console.error('Error looking for the user', error);
     throw error;
   }
 }
