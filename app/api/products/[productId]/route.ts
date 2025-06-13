@@ -7,13 +7,20 @@ export async function DELETE(
 ) {
   const { productId } = context.params;
 
+  if (!productId) {
+    return NextResponse.json(
+      { error: 'Product ID is required' },
+      { status: 400 }
+    );
+  }
+
   try {
     await deleteProduct(productId);
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('API delete error:', error);
+    console.error('Failed to delete product:', error);
     return NextResponse.json(
-      { error: 'Failed to delete product' },
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }
