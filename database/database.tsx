@@ -7,6 +7,8 @@ import {
   User,
   UserProfile,
   ProductsListed,
+  Category,
+  FullProduct,
 } from '../types/types';
 
 const URL = process.env.DATABASE_URL as string;
@@ -148,7 +150,9 @@ export async function getProductById(productId: string) {
 }
 
 /* Get full product details */
-export async function getFullProductById(productId: string) {
+export async function getFullProductById(
+  productId: string
+): Promise<FullProduct> {
   const sql = neon(URL);
 
   try {
@@ -172,7 +176,7 @@ export async function getFullProductById(productId: string) {
       GROUP BY p.id, u.first_name, u.last_name;
     `;
 
-    return result.length > 0 ? result[0] : null;
+    return result[0] as FullProduct;
   } catch (error) {
     console.error('Failed to fetch product with seller and rating:', error);
     throw error;
@@ -243,14 +247,8 @@ export async function getProductsByIds(
 export async function createProduct(product: Product) {
   const sql = neon(URL);
 
-  const {
-    name,
-    description,
-    price,
-    image_url,
-    category_id,
-    seller_id = '42c43983-618a-4ceb-a423-aa570ff756ea', // default placeholder
-  } = product;
+  const { name, description, price, image_url, category_id, seller_id } =
+    product;
 
   const id = crypto.randomUUID();
   const timestamp = new Date();
@@ -381,22 +379,52 @@ export async function updateUserPhoto(id: string, photoUrl: string) {
   }
 }
 
+export async function updateProductPhoto(id: string, image_url: string) {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    await sql`
+      UPDATE public.products
+      SET image_url = ${image_url}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error('Error updating product photo', error);
+    throw error;
+  }
+}
+
 export async function getProductsBySellerId(
   id: string
 ): Promise<ProductsListed[]> {
   const sql = neon(process.env.DATABASE_URL!);
   try {
     const result = await sql`
-        SELECT p.id, p.name, p.updated_at, p.image_url
+        SELECT p.id, p.name, p.price, p.updated_at, p.image_url
         FROM products p
         JOIN users u ON p.seller_id = u.id
         WHERE u.id = ${id}
-        ORDER BY p.created_at DESC
+        ORDER BY p.updated_at DESC
     `;
 
     return result as ProductsListed[];
   } catch (error) {
     console.error('Failed to fetch products:', error);
+    throw error;
+  }
+}
+
+export async function getCategoryDetailsById(id: string): Promise<Category> {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    const result = await sql`
+        SELECT id, name FROM categories c
+        WHERE id = ${id}
+        ORDER BY name ASC
+    `;
+
+    return result[0] as Category;
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
     throw error;
   }
 }

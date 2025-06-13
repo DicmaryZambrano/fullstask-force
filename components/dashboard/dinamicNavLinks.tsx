@@ -17,14 +17,15 @@ export default function DynamicLinks({ role }: Props) {
   useEffect(() => {
     setMounted(true);
   }, []);
-  const isActive = (href: string) => mounted && pathname === href;
+  const isActive = (href: string, exact = false) =>
+    mounted && (exact ? pathname === href : pathname.startsWith(href));
 
   return (
     <div className={styles.upperMenu}>
       <Link href={'/dashboard'}>
         <div
           className={`${styles.sideButton} ${
-            isActive('/dashboard') ? styles.active : ''
+            isActive('/dashboard', true) ? styles.active : ''
           }`}
         >
           <Image

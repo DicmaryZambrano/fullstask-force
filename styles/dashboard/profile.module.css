@@ -99,3 +99,28 @@
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000; /* color visible */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 1rem auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.uploadingPhoto {
+  width: 25rem;
+  height: 25rem;
+  background-color: var(--neutralColorLigther);
+  border-radius: 4rem;
+  display: flex;
+  align-items: center;
+}

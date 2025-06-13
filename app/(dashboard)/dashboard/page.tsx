@@ -32,8 +32,9 @@ export default async function Page() {
 
         <PictureUploader
           id={userInfo.id}
-          first_name={userInfo.first_name}
+          name={userInfo.first_name}
           picture_url={userInfo.profile_picture_url}
+          type='profile'
         />
 
         <div className={styles.profileSettings}>

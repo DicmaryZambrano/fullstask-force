@@ -52,6 +52,21 @@ export type UserProfile = {
 export interface ProductsListed {
   id: string;
   name: string;
+  price: string;
   image_url: string;
   updated_at: Timestamp;
+}
+
+export interface FullProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  category_id: string;
+  seller_id: string;
+  created_at: string;
+  updated_at: string;
+  seller_name: string;
+  average_rating: number;
 }

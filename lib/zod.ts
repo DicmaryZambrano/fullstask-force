@@ -24,3 +24,16 @@ export const userUpdateSchema = z.object({
     ),
   address: z.string().min(1, 'Address is required'),
 });
+
+export const productSchema = z.object({
+  name: z.string().min(1, { message: 'Product name is required' }),
+
+  price: z
+    .number({ invalid_type_error: 'Price must be a number' })
+    .gt(0, { message: 'Price must be greater than 0' })
+    .lte(50000, { message: 'Price cannot exceed 50,000' }),
+
+  description: z.string().refine((val) => val.trim().split(/\s+/).length >= 6, {
+    message: 'Description must have at least 10 words',
+  }),
+});

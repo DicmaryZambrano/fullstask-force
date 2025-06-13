@@ -3,11 +3,13 @@
   padding: 2rem;
   gap: 5rem;
   height: 100vh;
+  overflow: hidden;
 }
 
 .mainContent {
   flex: 1;
   height: 90%;
+  overflow-y: auto;
 }
 
 .logo {
@@ -51,6 +53,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  position: relative; /* puede ser fixed si quieres */
+  overflow-y: auto;
 }
 
 .dashboardButton {
