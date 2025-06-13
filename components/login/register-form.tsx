@@ -1,4 +1,4 @@
-import Button from './actionButton';
+import Button from '@/components/actionButton';
 import styles from '@/styles/login/register.module.css';
 import Image from 'next/image';
 

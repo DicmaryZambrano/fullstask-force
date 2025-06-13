@@ -6,8 +6,8 @@ import { auth } from '@/auth';
 
 export default async function SearchingBar() {
   const session = await auth();
-  console.log('Session:', session);
   const user = session?.user;
+
   return (
     <div className={styles.headerNav}>
       <Link href={'/'}>
