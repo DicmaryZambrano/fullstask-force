@@ -1,3 +1,11 @@
+import ProductsList from '@/components/dashboard/products/productsList';
+
 export default async function Page() {
-  return <h1>Hello Word</h1>;
+  return (
+    <div>
+      <h1>Products Listed</h1>
+
+      <ProductsList />
+    </div>
+  );
 }

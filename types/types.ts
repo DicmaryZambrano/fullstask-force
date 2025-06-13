@@ -1,3 +1,5 @@
+import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
+
 export interface Product {
   id?: string; // optional, used when updating
   name: string;
@@ -46,3 +48,10 @@ export type UserProfile = {
   address: string;
   profile_picture_url: string;
 };
+
+export interface ProductsListed {
+  id: string;
+  name: string;
+  image_url: string;
+  updated_at: Timestamp;
+}

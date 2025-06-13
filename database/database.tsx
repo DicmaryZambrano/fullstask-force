@@ -6,6 +6,7 @@ import {
   ProductWithRating,
   User,
   UserProfile,
+  ProductsListed,
 } from '../types/types';
 
 const URL = process.env.DATABASE_URL as string;
@@ -376,6 +377,26 @@ export async function updateUserPhoto(id: string, photoUrl: string) {
     `;
   } catch (error) {
     console.error('Error updating user photo', error);
+    throw error;
+  }
+}
+
+export async function getProductsBySellerId(
+  id: string
+): Promise<ProductsListed[]> {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    const result = await sql`
+        SELECT p.id, p.name, p.updated_at, p.image_url
+        FROM products p
+        JOIN users u ON p.seller_id = u.id
+        WHERE u.id = ${id}
+        ORDER BY p.created_at DESC
+    `;
+
+    return result as ProductsListed[];
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
     throw error;
   }
 }
