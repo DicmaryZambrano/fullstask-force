@@ -3,16 +3,9 @@ import { deleteProduct } from '@/database/database';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { productId: string } }
+  context: { params: { productId: string } }
 ) {
-  const { productId } = await params;
-
-  if (!productId) {
-    return NextResponse.json(
-      { error: 'Product ID is required' },
-      { status: 400 }
-    );
-  }
+  const { productId } = context.params;
 
   try {
     await deleteProduct(productId);
