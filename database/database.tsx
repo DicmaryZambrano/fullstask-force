@@ -315,3 +315,15 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     throw error;
   }
 }
+
+export async function getUserById(id: string): Promise<User> {
+  const sql = neon(URL);
+
+  try {
+    const result = await sql`SELECT * FROM public.users WHERE id = ${id}`;
+    return result[0] as User;
+  } catch (error) {
+    console.error('Error looking for the user', error);
+    throw error;
+  }
+}

@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import SideNav from '@/components/dashboard/sidenav';
 import { roboto, katibeh } from '@/components/fonts';
+import styles from '@/styles/dashboard/sidenav.module.css';
 
 export default async function LoginLayout({
   children,
@@ -10,7 +11,7 @@ export default async function LoginLayout({
   return (
     <html lang='en'>
       <body className={`${roboto.variable} ${katibeh.variable}`}>
-        <div>
+        <div className={styles.dashboardLayout}>
           <SideNav />
           <main>{children}</main>
         </div>
