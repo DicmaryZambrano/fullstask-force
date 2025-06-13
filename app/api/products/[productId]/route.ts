@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { deleteProduct } from '@/database/database';
 
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { productId: string } }
-) {
-  const { productId } = context.params;
+export async function DELETE(req: NextRequest) {
+  const url = new URL(req.url);
+  const segments = url.pathname.split('/');
+  const productId = segments.at(-1);
 
   if (!productId) {
     return NextResponse.json(
