@@ -5,6 +5,11 @@
   height: 100vh;
 }
 
+.mainContent {
+  flex: 1;
+  height: 90%;
+}
+
 .logo {
   margin-bottom: 5rem;
 }
@@ -16,6 +21,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+.sideButton.active {
+  background-color: var(--neutralColorBase);
+  border-left: 3px solid #66aaf8;
 }
 
 .sideButton:hover {

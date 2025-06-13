@@ -5,12 +5,12 @@ import Button from '../actionButton';
 import styles from '@/styles/dashboard/sidenav.module.css';
 import { auth } from '@/auth';
 import { getUserByEmail } from '@/database/database';
+import DynamicLinks from './dinamicNavLinks';
 
 export default async function SideNav() {
   const session = await auth();
   const user = session!.user;
   const userInfo = await getUserByEmail(user!.email as string);
-  console.log(userInfo);
 
   return (
     <aside>
@@ -24,73 +24,7 @@ export default async function SideNav() {
           />
         </Link>
 
-        <div className={styles.upperMenu}>
-          <Link href={'/dashboard'}>
-            <div className={styles.sideButton}>
-              <Image
-                src={'icons/dashboard-icons/user.svg'}
-                alt='user icon'
-                width={35}
-                height={25}
-              />
-
-              <p>My profile</p>
-            </div>
-          </Link>
-          {userInfo!.role === 'seller' ? (
-            <>
-              <Link href={'.'}>
-                <div className={styles.sideButton}>
-                  <Image
-                    src={'icons/dashboard-icons/clipboard-list.svg'}
-                    alt='user icon'
-                    width={35}
-                    height={25}
-                  />
-                  <p>Listings</p>
-                </div>
-              </Link>
-
-              <Link href={'.'}>
-                <div className={styles.sideButton}>
-                  <Image
-                    src={'icons/dashboard-icons/tag.svg'}
-                    alt='user icon'
-                    width={35}
-                    height={25}
-                  />
-                  <p>Collections</p>
-                </div>
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link href={'.'}>
-                <div className={styles.sideButton}>
-                  <Image
-                    src={'icons/dashboard-icons/shopping-cart.svg'}
-                    alt='user icon'
-                    width={35}
-                    height={25}
-                  />
-                  <p>Cart</p>
-                </div>
-              </Link>
-
-              <Link href={'.'}>
-                <div className={styles.sideButton}>
-                  <Image
-                    src={'icons/dashboard-icons/heart.svg'}
-                    alt='user icon'
-                    width={35}
-                    height={25}
-                  />
-                  <p>Favorites</p>
-                </div>
-              </Link>
-            </>
-          )}
-        </div>
+        <DynamicLinks role={userInfo?.role ?? 'customer'} />
 
         <div className={styles.navSpacing}></div>
 

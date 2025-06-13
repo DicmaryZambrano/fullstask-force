@@ -36,3 +36,13 @@ export interface User {
   address?: string;
   phone_number?: string;
 }
+
+export type UserProfile = {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  address: string;
+  profile_picture_url: string;
+};

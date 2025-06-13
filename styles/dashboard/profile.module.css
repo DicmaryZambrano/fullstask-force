@@ -1,0 +1,101 @@
+.profile {
+  padding: 6rem;
+  height: 100%;
+}
+
+.title {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 5rem;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.profileDisplay {
+  display: flex;
+  gap: 10rem;
+  height: 100%;
+}
+
+.pictureForm {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.userPhoto {
+  border-radius: 4rem;
+}
+
+.imageButton {
+  width: 80%;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  height: 3rem;
+  padding: 0.5rem;
+}
+
+.imageButton:hover {
+  background-color: black;
+}
+
+.editForm label {
+  font-size: 2rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.editForm textarea {
+  display: block;
+  width: 60%;
+  height: 8rem;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.editForm input {
+  display: block;
+  width: 60%;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  height: 3rem;
+  padding: 1rem;
+}
+
+.editForm input::placeholder {
+  padding-left: 1rem;
+}
+
+.profileSettings {
+  flex: 1;
+  border-left: 1px solid var(--neutralColorBase);
+  padding-left: 5rem;
+}
+
+.editButton {
+  margin-top: 5rem;
+  width: 10rem;
+}
+
+.cancelButton {
+  background-color: rgb(242, 76, 76);
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: black;
+  color: white;
+}
+.buttonGroup {
+  display: flex;
+  gap: 3rem;
+}
+
+.error {
+  color: red;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}

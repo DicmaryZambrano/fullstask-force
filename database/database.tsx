@@ -5,6 +5,7 @@ import {
   ProductWithRatingAndSeller,
   ProductWithRating,
   User,
+  UserProfile,
 } from '../types/types';
 
 const URL = process.env.DATABASE_URL as string;
@@ -316,14 +317,65 @@ export async function getUserByEmail(email: string): Promise<User | null> {
   }
 }
 
-export async function getUserById(id: string): Promise<User> {
+export async function getUserById(id: string) {
   const sql = neon(URL);
 
   try {
-    const result = await sql`SELECT * FROM public.users WHERE id = ${id}`;
-    return result[0] as User;
+    const result = await sql`SELECT id,
+    email,
+    first_name,
+    last_name,
+    phone_number,
+    role,
+    address,
+    profile_picture_url
+
+    FROM public.users WHERE id = ${id}`;
+    return result[0] as UserProfile;
   } catch (error) {
     console.error('Error looking for the user', error);
+    throw error;
+  }
+}
+
+export async function updateUserById(data: {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  address: string;
+}) {
+  const sql = neon(URL);
+  const { id, first_name, last_name, phone_number, address } = data;
+
+  try {
+    const result = await sql`
+      UPDATE public.users SET
+        first_name = ${first_name},
+        last_name = ${last_name},
+        phone_number = ${phone_number},
+        address = ${address}
+      WHERE id = ${id}
+      RETURNING id, email, first_name, last_name, phone_number, role, address, profile_picture_url
+    `;
+
+    return result[0] as UserProfile;
+  } catch (error) {
+    console.error('Error updating user:', error);
+    throw error;
+  }
+}
+
+export async function updateUserPhoto(id: string, photoUrl: string) {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    await sql`
+      UPDATE public.users
+      SET profile_picture_url = ${photoUrl}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error('Error updating user photo', error);
     throw error;
   }
 }
