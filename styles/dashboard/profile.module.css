@@ -29,16 +29,16 @@
 }
 
 .imageButton {
-  width: 80%;
-  background-color: black;
-  color: white;
-  font-size: 1rem;
-  height: 3rem;
-  padding: 0.5rem;
+  width: 80% !important;
+  background-color: black !important;
+  color: white !important;
+  font-size: 1rem !important;
+  height: 3rem !important;
+  padding: 0.5rem !important;
 }
 
 .imageButton:hover {
-  background-color: black;
+  background-color: black !important;
 }
 
 .editForm label {
@@ -76,18 +76,18 @@
 }
 
 .editButton {
-  margin-top: 5rem;
-  width: 10rem;
+  margin-top: 5rem !important;
+  width: 10rem !important;
 }
 
 .cancelButton {
-  background-color: rgb(242, 76, 76);
-  color: white;
+  background-color: rgb(242, 76, 76) !important;
+  color: white !important;
 }
 
 .cancelButton:hover {
-  background-color: black;
-  color: white;
+  background-color: black !important;
+  color: white !important;
 }
 .buttonGroup {
   display: flex;
