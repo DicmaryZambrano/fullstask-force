@@ -39,6 +39,7 @@ export const productSchema = z.object({
 });
 
 export const collectionSchema = z.object({
+  id: z.string().min(1, 'Id required'),
   name: z.string().min(1, 'Collection name is required'),
   description: z.string().min(5, 'Description must be at least 5 characters'),
 });

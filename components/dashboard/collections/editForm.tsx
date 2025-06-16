@@ -52,8 +52,11 @@ export default function EditCollectionForm({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(fullData),
+        body: JSON.stringify(result.data),
       });
+
+      const data = await res.json();
+      console.log('Server response:', data);
 
       if (!res.ok) throw new Error('Failed to update collection');
       router.push('/dashboard/collections');

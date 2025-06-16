@@ -4,6 +4,7 @@ import { collectionSchema } from '@/lib/zod';
 
 export async function PUT(req: Request) {
   const body = await req.json();
+  console.log('Incoming body:', body);
 
   const parsed = collectionSchema.safeParse(body);
   if (!parsed.success) {
