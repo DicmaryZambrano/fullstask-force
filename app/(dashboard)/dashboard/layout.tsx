@@ -1,6 +1,8 @@
 import '@/styles/globals.css';
 import SideNav from '@/components/dashboard/sidenav';
 import { roboto, katibeh } from '@/components/fonts';
+import styles from '@/styles/dashboard/sidenav.module.css';
+import { SessionProvider } from 'next-auth/react';
 
 export default async function LoginLayout({
   children,
@@ -10,10 +12,12 @@ export default async function LoginLayout({
   return (
     <html lang='en'>
       <body className={`${roboto.variable} ${katibeh.variable}`}>
-        <div>
-          <SideNav />
-          <main>{children}</main>
-        </div>
+        <SessionProvider>
+          <div className={styles.dashboardLayout}>
+            <SideNav />
+            <main className={styles.mainContent}>{children}</main>
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -12,7 +12,7 @@
 
 .featuredCard {
   border: 1.5px solid var(--neutralColorBase);
-  padding: 4rem 4rem 1.5rem;
+  padding: 4rem;
   width: 100%;
   box-shadow: 0px 0px 56.4px -19px rgba(0, 0, 0, 0.25);
 }
@@ -24,6 +24,7 @@
 .productGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-items: center;
   gap: 2rem;
 }
 
@@ -32,6 +33,32 @@
   font-size: 1.5em;
   margin-top: 1rem;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 123.24px;
+}
+
+@media (max-width: 1190px) {
+  .cardContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cardContainer div:nth-of-type(n + 3) {
+    display: none;
+  }
+  .featuredCard {
+    width: 90%;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cardContainer {
+    grid-template-columns: 1fr;
+  }
+  .cardContainer div:nth-of-type(n + 2) {
+    display: none;
+  }
 }
 
 /* 

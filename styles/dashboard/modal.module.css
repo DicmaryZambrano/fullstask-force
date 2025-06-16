@@ -1,0 +1,157 @@
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modalBtns {
+  display: flex;
+  gap: 2rem;
+}
+
+.modalBtns button:last-child {
+  background-color: rgb(139, 34, 34);
+  color: white;
+}
+
+.modalBtns button:first-child {
+  background-color: black;
+  color: white;
+}
+
+.deleteProductModal {
+  padding: 2rem;
+}
+
+.deleteProductModal h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.deleteProductModal p {
+  font-size: 1.8rem;
+}
+
+.deleteProductModal p:last-of-type {
+  margin-bottom: 2rem;
+}
+
+/* 
+Styles for the products selector modal in the editing collection */
+
+/* ✅ Estilos base para móviles y pantallas pequeñas */
+
+.collectionModal {
+  max-width: 90%;
+}
+
+.collectionMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.collectionMenu h3 {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 3rem;
+  margin-top: 0.7rem;
+}
+
+.collectionMenu button {
+  font-size: 1.2rem;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
+  justify-items: center;
+}
+
+.product {
+  width: 90%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--neutralColorBase);
+  border-radius: 0.4rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-3px);
+}
+
+.product img {
+  border-radius: 1rem;
+}
+
+.product span {
+  margin: 1rem auto;
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+
+.product button {
+  margin-top: 1.5rem;
+  height: 4rem;
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  border-radius: 0.3rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  width: 70%;
+}
+
+.product button:hover {
+  background-color: var(--primaryColorBase);
+}
+
+/* ✅ Media query para pantallas mayores de 567px */
+@media (min-width: 567px) {
+  .collectionMenu h3 {
+    font-size: 5rem;
+  }
+
+  .collectionMenu {
+    align-items: flex-start;
+  }
+
+  .collectionModal {
+    width: 90%;
+    padding: 4rem;
+  }
+
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    row-gap: 5rem;
+    column-gap: 3rem;
+  }
+
+  .product button {
+    width: 58%;
+  }
+}

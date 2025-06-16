@@ -1,0 +1,29 @@
+.form textarea {
+  margin-bottom: 2rem;
+}
+
+.form input[type='file'] {
+  border: none;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}
+
+.form img {
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+form .createBtn {
+  width: 30% !important;
+}
+
+.h1 {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 5rem;
+  margin-bottom: 3rem;
+}
+
+.createContainer {
+  padding: 3rem 0;
+}

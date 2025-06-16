@@ -25,7 +25,8 @@ export default function ProductCardCategory({
         <div className={styles.priceRating}>
           <span className={styles.price}>USD {product.price}</span>
           <span className={styles.rating}>
-            {Number(product.average_rating).toFixed(1)} <FaStar />
+            <div>{Number(product.average_rating).toFixed(1)}</div>
+            <FaStar />
           </span>
         </div>
       </div>
