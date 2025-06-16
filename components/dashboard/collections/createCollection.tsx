@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { collectionSchema } from '@/lib/zod';
+import { collectionSchemaCreate } from '@/lib/zod';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/actionButton';
 import styles from '@/styles/dashboard/collections/collections.module.css';
@@ -18,7 +18,7 @@ export default function CreateCollectionForm() {
     e.preventDefault();
     console.log('🚀 HandleSubmit called');
 
-    const result = collectionSchema.safeParse(formData);
+    const result = collectionSchemaCreate.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.errors.forEach((err) => {

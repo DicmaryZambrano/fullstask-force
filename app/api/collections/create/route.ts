@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { collectionSchema } from '@/lib/zod';
+import { collectionSchemaCreate } from '@/lib/zod';
 import { createCollectionInDb } from '@/database/database';
 
 export async function POST(req: Request) {
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json();
-  const result = collectionSchema.safeParse(body);
+  const result = collectionSchemaCreate.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
