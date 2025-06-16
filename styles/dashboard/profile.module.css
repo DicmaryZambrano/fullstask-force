@@ -53,7 +53,8 @@
   width: 60%;
   height: 8rem;
   font-size: 2rem;
-  padding: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--neutralColorBase);
 }
 
 .editForm input {
@@ -62,7 +63,9 @@
   font-size: 2rem;
   margin-bottom: 2rem;
   height: 3rem;
-  padding: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--neutralColorBase);
 }
 
 .editForm input::placeholder {
@@ -76,12 +79,12 @@
 }
 
 .editButton {
-  margin-top: 5rem !important;
+  margin-top: 3rem !important;
   width: 10rem !important;
 }
 
 .cancelButton {
-  background-color: rgb(242, 76, 76) !important;
+  background-color: rgb(139, 34, 34) !important;
   color: white !important;
 }
 

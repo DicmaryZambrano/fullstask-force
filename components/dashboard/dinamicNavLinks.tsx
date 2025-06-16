@@ -56,7 +56,7 @@ export default function DynamicLinks({ role }: Props) {
             </div>
           </Link>
 
-          <Link href={'.'}>
+          <Link href={'/dashboard/collections'}>
             <div
               className={`${styles.sideButton} ${
                 isActive('/dashboard/collections') ? styles.active : ''
@@ -74,7 +74,7 @@ export default function DynamicLinks({ role }: Props) {
         </>
       ) : (
         <>
-          <Link href={'.'}>
+          <Link href={'/cart'}>
             <div className={styles.sideButton}>
               <Image
                 src={'icons/dashboard-icons/shopping-cart.svg'}
@@ -86,7 +86,7 @@ export default function DynamicLinks({ role }: Props) {
             </div>
           </Link>
 
-          <Link href={'.'}>
+          <Link href={'/favorites'}>
             <div className={styles.sideButton}>
               <Image
                 src={'icons/dashboard-icons/heart.svg'}

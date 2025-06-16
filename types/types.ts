@@ -70,3 +70,21 @@ export interface FullProduct {
   seller_name: string;
   average_rating: number;
 }
+
+export interface CollectionList {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface ProductFromCollection {
+  id: string;
+  name: string;
+  image_url: string;
+}
+
+export interface CollectionDetails {
+  id: string;
+  name: string;
+  description: string;
+}

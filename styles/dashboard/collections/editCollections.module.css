@@ -1,0 +1,67 @@
+.h1 {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 5rem;
+  margin-bottom: 3rem;
+}
+
+.editContainer {
+  padding: 3rem 0;
+}
+
+.productsContainer {
+  padding-top: 5rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--neutralColorBase);
+}
+
+.productsMenu {
+  display: flex;
+  gap: 6rem;
+  align-items: flex-start;
+  margin-bottom: 5rem;
+}
+
+.productsMenu h2 {
+  font-family: var(--font-katibeh);
+  font-weight: 400;
+  font-size: 4rem;
+}
+
+.productsMenu button {
+  font-size: 1.2rem;
+  background-color: black;
+  color: white;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: start;
+  align-items: center;
+  max-width: 60%;
+  margin-bottom: 2rem;
+  background-color: var(--neutralColorLigther);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.productList img {
+  border-radius: 0.3rem;
+}
+
+.productList h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.productList p {
+  font-size: 1.5rem;
+}
+
+.deleteButton {
+  margin-top: 0 !important;
+  width: 16rem !important;
+  background-color: rgb(139, 34, 34) !important;
+  color: white !important;
+}

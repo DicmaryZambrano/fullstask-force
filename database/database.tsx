@@ -9,6 +9,9 @@ import {
   ProductsListed,
   Category,
   FullProduct,
+  CollectionList,
+  ProductFromCollection,
+  CollectionDetails,
 } from '../types/types';
 
 const URL = process.env.DATABASE_URL as string;
@@ -425,6 +428,133 @@ export async function getCategoryDetailsById(id: string): Promise<Category> {
     return result[0] as Category;
   } catch (error) {
     console.error('Failed to fetch categories:', error);
+    throw error;
+  }
+}
+
+export async function getCollectionsBySellerId(
+  id: string
+): Promise<CollectionList[]> {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    const result = await sql`
+      SELECT * FROM collections WHERE seller_id = ${id}
+    `;
+
+    return result as CollectionList[];
+  } catch (error) {
+    console.error('Failed to fetch collections:', error);
+    throw error;
+  }
+}
+
+export async function getProductsByCollectionId(
+  collection_id: string
+): Promise<ProductFromCollection[]> {
+  const sql = neon(process.env.DATABASE_URL!);
+
+  try {
+    const result = await sql`SELECT p.id, p.name, p.image_url
+      FROM products p
+      JOIN collection_products cp ON p.id = cp.product_id
+      WHERE cp.collection_id = ${collection_id}
+          `;
+
+    return result as ProductFromCollection[];
+  } catch (error) {
+    console.error('Failed to fetch collections:', error);
+    throw error;
+  }
+}
+
+export async function getCollectionDetailsById(
+  collection_id: string
+): Promise<CollectionDetails | null> {
+  const sql = neon(process.env.DATABASE_URL!);
+
+  try {
+    const result = await sql`
+      SELECT 
+        id,
+        name,
+        description
+      FROM collections 
+      WHERE id = ${collection_id}
+    `;
+
+    return result[0] as CollectionDetails;
+  } catch (error) {
+    console.error('Failed to fetch collection details:', error);
+    throw error;
+  }
+}
+
+export async function deleteProductFromCollection(
+  collection_id: string,
+  product_id: string
+) {
+  const sql = neon(process.env.DATABASE_URL!);
+
+  try {
+    await sql`
+      DELETE FROM collection_products WHERE collection_id = ${collection_id} AND product_id = ${product_id}
+    `;
+  } catch (error) {
+    console.error('Failes to delete the product', error);
+    throw error;
+  }
+}
+
+export async function addProductToCollection(
+  collection_id: string,
+  product_id: string
+) {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    await sql`
+      INSERT INTO collection_products (collection_id, product_id)
+      VALUES (${collection_id}, ${product_id})
+      ON CONFLICT DO NOTHING
+    `;
+  } catch (error) {
+    console.error('Failed to add product to collection', error);
+    throw error;
+  }
+}
+
+export async function updateCollection(
+  id: string,
+  name: string,
+  description: string
+) {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    await sql`
+      UPDATE collections
+      SET name = ${name}, description = ${description}
+      WHERE id = ${id}
+    `;
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to update collection:', error);
+    throw error;
+  }
+}
+
+export async function createCollectionInDb(
+  sellerId: string,
+  name: string,
+  description: string
+) {
+  const sql = neon(process.env.DATABASE_URL!);
+
+  try {
+    await sql`
+      INSERT INTO collections (id, seller_id, name, description)
+      VALUES (${crypto.randomUUID()}, ${sellerId}, ${name}, ${description});
+    `;
+  } catch (error) {
+    console.error('Failed to insert collection:', error);
     throw error;
   }
 }

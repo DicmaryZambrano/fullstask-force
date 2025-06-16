@@ -37,3 +37,8 @@ export const productSchema = z.object({
     message: 'Description must have at least 10 words',
   }),
 });
+
+export const collectionSchema = z.object({
+  name: z.string().min(1, 'Collection name is required'),
+  description: z.string().min(5, 'Description must be at least 5 characters'),
+});

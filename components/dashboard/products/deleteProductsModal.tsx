@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/actionButton';
 import { ProductsListed } from '@/types/types';
-import styles from '@/styles/dashboard/deleteModal.module.css';
+import styles from '@/styles/dashboard/modal.module.css';
 
 type DeleteProductModalProps = {
   product: ProductsListed;
