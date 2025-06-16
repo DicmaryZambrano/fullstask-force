@@ -3,6 +3,8 @@ import { getCategoryDetailsById } from '@/database/database';
 import EditProductForm from '@/components/dashboard/products/editProductsForm';
 import PictureUploader from '@/components/dashboard/pictureUploader';
 
+import styles from '@/styles/dashboard/profile.module.css';
+
 export default async function EditProduct(props: {
   params: Promise<{ product_id: string }>;
 }) {
@@ -15,9 +17,10 @@ export default async function EditProduct(props: {
   console.log(category);
 
   return (
-    <>
-      <div>
-        <h1>Edit Product Details</h1>
+    <div className={styles.profile}>
+      <h1 className={styles.title}>Edit Product Details</h1>
+
+      <div className={styles.profileDisplay}>
         <PictureUploader
           id={id}
           picture_url={productDetails.image_url}
@@ -25,8 +28,14 @@ export default async function EditProduct(props: {
           type='product'
           category={category.name}
         />
-        <EditProductForm productDetails={productDetails} category={category} />
+
+        <div className={styles.profileSettings}>
+          <EditProductForm
+            productDetails={productDetails}
+            category={category}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }

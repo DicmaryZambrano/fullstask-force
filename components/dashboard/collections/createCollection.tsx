@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { collectionSchema } from '@/lib/zod';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/actionButton';
-import formStyles from '@/styles/dashboard/profile.module.css';
 import styles from '@/styles/dashboard/collections/collections.module.css';
+import formStyles from '@/styles/dashboard/profile.module.css';
 
 export default function CreateCollectionForm() {
   const [formData, setFormData] = useState({ name: '', description: '' });
@@ -75,7 +75,7 @@ export default function CreateCollectionForm() {
       <Button
         buttonText='Create Collection'
         type='submit'
-        className={` ${styles.createCollectBtn} ${formStyles.editButton} ${formStyles.imageButton}`}
+        className={`${styles.createCollectBtn} ${formStyles.editButton} ${formStyles.imageButton}  `}
       />
     </form>
   );

@@ -17,14 +17,16 @@ export default function DeleteProductModal({
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
-        <h2>Are you sure?</h2>
-        <p>
-          You are about to delete <strong>{product.name}</strong>.
-        </p>
-        <p>This action cannot be undone.</p>
-        <div>
-          <Button buttonText='Cancel' onClick={onCancel} type='button' />
-          <Button buttonText='Delete' onClick={onConfirm} type='button' />
+        <div className={styles.deleteProductModal}>
+          <h2>Are you sure?</h2>
+          <p>
+            You are about to delete <strong>{product.name}</strong>.
+          </p>
+          <p>This action cannot be undone.</p>
+          <div className={styles.modalBtns}>
+            <Button buttonText='Cancel' onClick={onCancel} type='button' />
+            <Button buttonText='Delete' onClick={onConfirm} type='button' />
+          </div>
         </div>
       </div>
     </div>

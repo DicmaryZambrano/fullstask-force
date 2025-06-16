@@ -5,6 +5,7 @@ import { Product, Category } from '@/types/types';
 import { productSchema } from '@/lib/zod';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/actionButton';
+import formStyles from '@/styles/dashboard/profile.module.css';
 
 type Props = {
   productDetails: Product;
@@ -80,7 +81,7 @@ export default function EditProductForm({ productDetails, category }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={formStyles.editForm}>
       <label htmlFor='name'>Product Name</label>
       <input
         type='text'
@@ -125,9 +126,18 @@ export default function EditProductForm({ productDetails, category }: Props) {
       ></textarea>
       {formErrors.description && <p>{formErrors.description}</p>}
 
-      <div>
-        <Button buttonText='Cancel' type='button' onClick={handleCancel} />
-        <Button buttonText='Save Changes' type='submit' />
+      <div className={formStyles.buttonGroup}>
+        <Button
+          buttonText='Cancel'
+          type='button'
+          onClick={handleCancel}
+          className={`${formStyles.editButton} ${formStyles.imageButton} ${formStyles.cancelButton}`}
+        />
+        <Button
+          buttonText='Save Changes'
+          type='submit'
+          className={`${formStyles.editButton} ${formStyles.imageButton}`}
+        />
       </div>
     </form>
   );

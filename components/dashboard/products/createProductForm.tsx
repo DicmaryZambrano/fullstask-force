@@ -5,6 +5,8 @@ import Button from '@/components/actionButton';
 import { Category } from '@/types/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import formStyles from '@/styles/dashboard/profile.module.css';
+import styles from '@/styles/dashboard/listings/createProduct.module.css';
 
 type ProductFormData = {
   name: string;
@@ -95,7 +97,11 @@ export default function CreateProductForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 600 }}>
+    <form
+      onSubmit={handleSubmit}
+      style={{ maxWidth: 600 }}
+      className={`${styles.form} ${formStyles.editForm}`}
+    >
       <label>Product Name</label>
       <input
         type='text'
@@ -152,7 +158,11 @@ export default function CreateProductForm() {
         </div>
       )}
 
-      <Button buttonText='Create Product' type='submit' />
+      <Button
+        buttonText='Create Product'
+        type='submit'
+        className={`${styles.createBtn} ${formStyles.imageButton}`}
+      />
     </form>
   );
 }

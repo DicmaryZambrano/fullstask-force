@@ -54,16 +54,18 @@
   height: 8rem;
   font-size: 2rem;
   padding: 1.5rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--neutralColorBase);
 }
 
-.editForm input {
+.editForm input,
+.editForm select {
   display: block;
   width: 60%;
   font-size: 2rem;
   margin-bottom: 2rem;
-  height: 3rem;
-  padding: 1.5rem;
+  height: 3.5rem;
+  padding: 0.3rem 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid var(--neutralColorBase);
 }
