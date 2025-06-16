@@ -1,18 +1,17 @@
 /* styles/products/FiltersSidebar.module.css */
 
 .wrapper {
-  background-color: var(--neutralColorBase);
+  background-color: var(--neutralColorLigther1);
   border-radius: 10px;
   padding: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: var(--font-katibeh);
-
 }
 
 .title {
-  font-size: 2.5rem;              
+  font-size: 2.5rem;
   font-weight: bold;
-  color: var(--primaryColorDark2);  
+  color: black;
   margin-bottom: 1.5rem;
 }
 
@@ -22,17 +21,16 @@
 
 .label {
   display: block;
-  font-size: 2rem;             
+  font-size: 2rem;
   font-weight: 100;
   margin-bottom: 0.75rem;
-  color: var(--primaryColorDark2);
+  color: black;
 }
-
 
 .input,
 .select {
   width: 100%;
-  padding: 1rem;              
+  padding: 1rem;
   border: 1px solid var(--primaryColorDark1);
   border-radius: 6px;
   font-size: 1rem;
@@ -56,8 +54,8 @@
   border: none;
   padding: 1rem;
   border-radius: 6px;
-  color: #fff;
-  font-size: 1.1rem;            
+  color: black;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;

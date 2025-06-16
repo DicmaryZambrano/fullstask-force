@@ -25,13 +25,14 @@
 
 .searchBar::placeholder {
   font-style: italic;
-  font-weight: 100;
+  font-weight: 500;
   color: var(--neutralColorDark1);
 }
 
 .userWelcome {
   display: flex;
   align-items: center;
+  text-align: center;
   gap: 0.5rem;
 }
 
@@ -55,4 +56,77 @@
 .avatar {
   border-radius: 50%;
   object-fit: cover;
+}
+
+@media (max-width: 1190px) {
+  .userWelcome {
+    gap: 1rem;
+  }
+
+  .headerNav {
+    gap: 1.5rem;
+  }
+
+  .loginButton {
+    font-size: 1rem;
+  }
+  .headerButtons {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 710px) {
+  .favorite {
+    display: none;
+  }
+
+  .cart {
+    width: 3.2rem;
+  }
+
+  .userWelcome {
+    flex-direction: column;
+  }
+
+  .userWelcome div {
+    display: none;
+  }
+
+  .headerNav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'left right'
+      'bottom bottom';
+    gap: 1rem;
+    justify-items: end;
+  }
+
+  .headerImg {
+    grid-area: left;
+  }
+
+  .headerButtons {
+    grid-area: right;
+    gap: 1.5rem;
+  }
+
+  .headerButtons img {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .searchBar {
+    grid-area: bottom;
+    width: 100%;
+  }
+
+  .loginButton {
+    font-size: 1rem;
+  }
+
+  /* .searchBar {
+    display: none;
+  } */
 }

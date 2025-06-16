@@ -1,3 +1,5 @@
+import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
+
 export interface Product {
   id?: string; // optional, used when updating
   name: string;
@@ -35,4 +37,54 @@ export interface User {
   last_name: string;
   address?: string;
   phone_number?: string;
+}
+
+export type UserProfile = {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  address: string;
+  profile_picture_url: string;
+};
+
+export interface ProductsListed {
+  id: string;
+  name: string;
+  price: string;
+  image_url: string;
+  updated_at: Timestamp;
+}
+
+export interface FullProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  category_id: string;
+  seller_id: string;
+  created_at: string;
+  updated_at: string;
+  seller_name: string;
+  average_rating: number;
+}
+
+export interface CollectionList {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface ProductFromCollection {
+  id: string;
+  name: string;
+  image_url: string;
+}
+
+export interface CollectionDetails {
+  id: string;
+  name: string;
+  description: string;
 }

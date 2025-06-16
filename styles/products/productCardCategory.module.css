@@ -1,7 +1,7 @@
 .card {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,10 +13,9 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  height: 200px; 
+  height: 200px;
   overflow: hidden;
 }
-
 
 .image {
   width: 100%;
@@ -29,7 +28,7 @@
 }
 
 .title {
-  font-size: 2rem; 
+  font-size: 2rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
@@ -50,8 +49,8 @@
 }
 
 .price {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 900;
   color: #000;
 }
 
@@ -59,7 +58,11 @@
   font-size: 1.9rem;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
+}
+
+.rating div {
+  margin-top: 1.1rem;
 }
 
 .rating svg {

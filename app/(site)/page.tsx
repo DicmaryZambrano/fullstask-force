@@ -15,7 +15,7 @@ export default async function Page() {
   );
 
   return (
-    <main>
+    <>
       <h1 className='homeTitles'>Featured Products</h1>
       {/*<FeaturedCard />*/}
       <FeaturedCardClient />
@@ -27,6 +27,6 @@ export default async function Page() {
           products={category.products}
         />
       ))}
-    </main>
+    </>
   );
 }

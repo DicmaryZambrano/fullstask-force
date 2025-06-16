@@ -1,0 +1,62 @@
+.dashboardLayout {
+  display: flex;
+  padding: 2rem;
+  gap: 5rem;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.logo {
+  margin-bottom: 5rem;
+}
+
+.sideButton {
+  border-radius: 1rem;
+  background-color: var(--neutralColorLigther);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sideButton.active {
+  background-color: var(--neutralColorBase);
+  border-left: 3px solid #66aaf8;
+}
+
+.sideButton:hover {
+  background-color: var(--neutralColorBase);
+}
+
+.sideButton p {
+  padding-left: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.navSpacing {
+  flex-grow: 1;
+  border-radius: 1rem;
+  background-color: var(--neutralColorLigther);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative; /* puede ser fixed si quieres */
+  overflow-y: auto;
+}
+
+.dashboardButton {
+  width: 100%;
+}
