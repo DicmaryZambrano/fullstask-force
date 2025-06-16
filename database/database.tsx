@@ -14,6 +14,7 @@ import {
   ProductFromCollection,
   CollectionDetails,
 } from '../types/types';
+import { notFound } from 'next/navigation';
 
 const URL = process.env.DATABASE_URL as string;
 
@@ -144,7 +145,11 @@ export async function getProductById(productId: string) {
       WHERE id = ${productId};
     `;
 
-    return result.length > 0 ? result[0] : null;
+    if (result.length === 0) {
+      notFound(); //  Esto renderiza app/not-found.tsx
+    }
+
+    return result[0];
   } catch (error) {
     console.error('Failed to fetch product by ID:', error);
     throw error;
