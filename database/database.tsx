@@ -1,4 +1,5 @@
 'use server';
+
 import { neon } from '@neondatabase/serverless';
 import {
   Product,
@@ -6,6 +7,7 @@ import {
   ProductWithRating,
   User,
 } from '../types/types';
+import { notFound } from 'next/navigation';
 
 const URL = process.env.DATABASE_URL as string;
 
@@ -59,7 +61,7 @@ export async function getFeaturedProducts(category: string) {
     throw error;
   }
 }
-/* Get all products by category with their average ratings */
+
 export async function getProductsByCategory(
   categoryId: string
 ): Promise<ProductWithRating[]> {
@@ -86,7 +88,6 @@ export async function getProductsByCategory(
   }
 }
 
-/* Gets a set of 4 products with the average reviews of that product and the name of the seller*/
 export async function getHomeProductsByCategory(
   categoryId: string
 ): Promise<ProductWithRatingAndSeller[]> {
@@ -120,7 +121,6 @@ export async function getHomeProductsByCategory(
   }
 }
 
-/* Gets basic product information by id*/
 export async function getProductById(productId: string) {
   const sql = neon(URL);
 
@@ -138,14 +138,17 @@ export async function getProductById(productId: string) {
       WHERE id = ${productId};
     `;
 
-    return result.length > 0 ? result[0] : null;
+    if (result.length === 0) {
+      notFound(); //  Esto renderiza app/not-found.tsx
+    }
+
+    return result[0];
   } catch (error) {
     console.error('Failed to fetch product by ID:', error);
     throw error;
   }
 }
 
-/* Get full product details */
 export async function getFullProductById(productId: string) {
   const sql = neon(URL);
 
@@ -177,12 +180,10 @@ export async function getFullProductById(productId: string) {
   }
 }
 
-/* Get Reviews by Product Id */
 export async function getReviewsByProductId(productId: string) {
   const sql = neon(URL);
 
   try {
-    // Fetch all reviews + reviewer name
     const reviews = await sql`
       SELECT 
         r.id,
@@ -196,7 +197,6 @@ export async function getReviewsByProductId(productId: string) {
       ORDER BY r.created_at DESC;
     `;
 
-    // Calculate the average rating
     const averageResult = await sql`
       SELECT COALESCE(AVG(rating), 0) AS average_rating
       FROM reviews
@@ -215,7 +215,6 @@ export async function getReviewsByProductId(productId: string) {
   }
 }
 
-/* Get a series of products */
 export async function getProductsByIds(
   productIds: string[]
 ): Promise<Product[]> {
@@ -230,14 +229,13 @@ export async function getProductsByIds(
       WHERE id = ANY(${productIds});
     `;
 
-    return result as Product[]; // <--- type assertion
+    return result as Product[];
   } catch (error) {
     console.error('Failed to fetch cart products:', error);
     throw error;
   }
 }
 
-/* CRUD for Products */
 export async function createProduct(product: Product) {
   const sql = neon(URL);
 
@@ -247,7 +245,7 @@ export async function createProduct(product: Product) {
     price,
     image_url,
     category_id,
-    seller_id = '42c43983-618a-4ceb-a423-aa570ff756ea', // default placeholder
+    seller_id = '42c43983-618a-4ceb-a423-aa570ff756ea',
   } = product;
 
   const id = crypto.randomUUID();
@@ -285,7 +283,6 @@ export async function createProduct(product: Product) {
   }
 }
 
-/* Delete Product */
 export async function deleteProduct(productId: string) {
   const sql = neon(URL);
 
@@ -301,8 +298,6 @@ export async function deleteProduct(productId: string) {
     throw error;
   }
 }
-
-// Get a user from the database using the email as a search parameter
 
 export async function getUSerByEmail(email: string): Promise<User | null> {
   const sql = neon(URL);

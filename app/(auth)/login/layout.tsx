@@ -15,7 +15,7 @@ export default async function LoginLayout({
   return (
     <html lang='en'>
       <body className={`${roboto.variable} ${katibeh.variable}`}>
-        <header className={styles.header}>
+        {/* <header className={styles.header}>
           <Link href={'/'}>
             <Image
               src={'/logos/companyLogo.svg'}
@@ -24,9 +24,9 @@ export default async function LoginLayout({
               height={68}
             />
           </Link>
-        </header>
+        </header> */}
         {children}
-        <Footer categories={categories} />
+        {/* <Footer categories={categories} /> */}
       </body>
     </html>
   );
