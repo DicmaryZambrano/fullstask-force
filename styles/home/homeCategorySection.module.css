@@ -5,6 +5,12 @@
   border: 1px solid;
 }
 
+@media (max-width: 1400px) {
+  .hrHome {
+    width: 90%;
+  }
+}
+
 .section {
   margin: 0 auto;
   margin-bottom: 9rem;
@@ -30,6 +36,27 @@
 }
 
 .ProductFlex {
-  display: flex;
+  display: grid;
   gap: 3rem;
+}
+
+/* 1 columna en pantallas pequeñas (menos de 600px) */
+@media (max-width: 599px) {
+  .ProductFlex {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2 columnas en pantallas medianas (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .ProductFlex {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 4 columnas en pantallas grandes (1024px o más) */
+@media (min-width: 1024px) {
+  .ProductFlex {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -16,6 +16,7 @@ export default async function SearchingBar() {
           alt='Company Logo, Hancrafted Haven, where creativity finds a home'
           width={320}
           height={68}
+          className={styles.headerImg}
         />
       </Link>
 
@@ -28,13 +29,15 @@ export default async function SearchingBar() {
       <div className={styles.headerButtons}>
         {user ? (
           <div className={styles.userWelcome}>
-            <Image
-              src={user.image || '/icons/user.svg'}
-              alt='User Profile'
-              width={45}
-              height={45}
-              className={styles.avatar}
-            />
+            <Link href={'/dashboard'}>
+              <Image
+                src={user.image || '/icons/user.svg'}
+                alt='User Profile'
+                width={45}
+                height={45}
+                className={styles.avatar}
+              />
+            </Link>
 
             <div>
               <span>Welcome, {user.name?.split(' ')[0]}</span>
@@ -43,11 +46,11 @@ export default async function SearchingBar() {
           </div>
         ) : (
           <Link href='/login'>
-            <Button buttonText='Sign Up' />
+            <Button buttonText='LogIn' className={styles.loginButton} />
           </Link>
         )}
 
-        <Link href={'#'}>
+        <Link href={'#'} className={styles.favorite}>
           <Image
             src={'/icons/favorites.svg'}
             alt='Favorite Icon link'
@@ -56,7 +59,7 @@ export default async function SearchingBar() {
           />
         </Link>
 
-        <Link href={'/cart'}>
+        <Link href={'/cart'} className={styles.cart}>
           <Image
             src={'/icons/cart.svg'}
             alt='Cart Icon link'
