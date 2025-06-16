@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { collectionSchema } from '@/lib/zod';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/actionButton';
+import formStyles from '@/styles/dashboard/profile.module.css';
+import styles from '@/styles/dashboard/collections/collections.module.css';
 
 export default function CreateCollectionForm() {
   const [formData, setFormData] = useState({ name: '', description: '' });
@@ -42,7 +44,11 @@ export default function CreateCollectionForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete='off'>
+    <form
+      onSubmit={handleSubmit}
+      autoComplete='off'
+      className={formStyles.editForm}
+    >
       <label htmlFor='name'>Collection Name</label>
       <input
         id='name'
@@ -66,7 +72,11 @@ export default function CreateCollectionForm() {
         <p style={{ color: 'red' }}>{errors.description}</p>
       )}
 
-      <Button buttonText='Create Collection' type='submit' />
+      <Button
+        buttonText='Create Collection'
+        type='submit'
+        className={` ${styles.createCollectBtn} ${formStyles.editButton} ${formStyles.imageButton}`}
+      />
     </form>
   );
 }

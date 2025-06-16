@@ -9,7 +9,7 @@ import { revalidatePath } from 'next/cache';
 import AddProductToCollection from './addProductButton';
 
 import btnStyles from '@/styles/dashboard/profile.module.css';
-import styles from '@/styles/dashboard/collections/editCollections.module.css';
+import styles from '@/styles/dashboard/collections/collections.module.css';
 
 export default async function ProductsFromCollection({
   collectionId,

@@ -558,3 +558,13 @@ export async function createCollectionInDb(
     throw error;
   }
 }
+
+export async function deleteCollectionById(collectionId: string) {
+  const sql = neon(process.env.DATABASE_URL!);
+  try {
+    await sql`DELETE FROM collections WHERE id = ${collectionId}`;
+  } catch (error) {
+    console.error('Failed to delete collection:', error);
+    throw error;
+  }
+}

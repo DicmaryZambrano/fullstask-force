@@ -2,7 +2,7 @@ import ProductsFromCollection from '@/components/dashboard/collections/productsF
 import EditCollectionForm from '@/components/dashboard/collections/editForm';
 import { getCollectionDetailsById } from '@/database/database';
 import { auth } from '@/auth';
-import styles from '@/styles/dashboard/collections/editCollections.module.css';
+import styles from '@/styles/dashboard/collections/collections.module.css';
 
 export default async function EditCollections({
   params,
