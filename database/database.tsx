@@ -152,7 +152,6 @@ export async function getProductById(productId: string) {
   }
 }
 
-/* Get full product details */
 export async function getFullProductById(
   productId: string
 ): Promise<FullProduct> {

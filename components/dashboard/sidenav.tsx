@@ -29,7 +29,7 @@ export default async function SideNav() {
         <div className={styles.navSpacing}></div>
 
         <div className={styles.bottonMenu}>
-          <Link href={'.'}>
+          <Link href={'/'}>
             {' '}
             <div className={styles.sideButton}>
               <Image
