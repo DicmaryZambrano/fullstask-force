@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
-import { ProductWithRating } from '@/types/types';
+import { ProductWithRatingAndSeller } from '@/types/types';
 import styles from '@/styles/products/productCardCategory.module.css';
 
 export default function ProductCardCategory({
   product,
 }: {
-  product: ProductWithRating;
+  product: ProductWithRatingAndSeller;
 }) {
   return (
     <Link href={`/products/${product.id}`} className={styles.card}>
@@ -21,7 +21,7 @@ export default function ProductCardCategory({
       </div>
       <div className={styles.details}>
         <p className={styles.title}>{product.name}</p>
-        <p className={styles.seller}>Seller Name</p>
+        <p className={styles.seller}>{product.seller_name}</p>
         <div className={styles.priceRating}>
           <span className={styles.price}>USD {product.price}</span>
           <span className={styles.rating}>

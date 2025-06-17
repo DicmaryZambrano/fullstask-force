@@ -25,7 +25,7 @@ export default function ProductCard({
           </span>
         </div>
 
-        <p className={styles.seller}>Seller Name</p>
+        <p className={styles.seller}>{product.seller_name}</p>
         <div className={styles.priceRating}>
           <span className={styles.price}>USD {product.price}</span>
         </div>

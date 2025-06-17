@@ -88,3 +88,21 @@ export interface CollectionDetails {
   name: string;
   description: string;
 }
+
+export interface CollectionWithProducts extends CollectionDetails {
+  products: ProductWithRatingAndSeller[];
+}
+
+export interface Review {
+  id: string;
+  customer_id: string;
+  rating: number;
+  comment: string;
+  created_at: Timestamp;
+  user_name: string;
+}
+
+export interface ProductReviewSummary {
+  average_rating: number;
+  reviews: Review[];
+}

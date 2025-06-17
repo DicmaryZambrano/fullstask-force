@@ -3,12 +3,22 @@ import StarRating from './starRating';
 import Link from 'next/link';
 import AddToCartButton from './addToCartButton';
 import AddToFavoritesButton from './addToFavoritesButton';
+import ReviewForm from './reviewForm';
+import DeleteReviewButton from './deleteReviewButton';
 import Image from 'next/image';
 import styles from '@/styles/products/productDetails.module.css';
 
-export default async function ProductDetailsWrapper({ productId }: { productId: string }) {
+type ProductDetailsProps = {
+  productId: string;
+  currentUserId: string | null;
+};
+
+export default async function ProductDetails({ productId, currentUserId }: ProductDetailsProps) {
   const product = await getFullProductById(productId);
   const { reviews, average_rating } = await getReviewsByProductId(productId);
+  const userReview = currentUserId
+  ? reviews.find((review) => review.customer_id === currentUserId)
+  : null;
 
   if (!product) return <h2>Product not found</h2>;
 
@@ -43,11 +53,21 @@ export default async function ProductDetailsWrapper({ productId }: { productId: 
         <div className={styles['reviews-title']}>
           <p>Seller has {reviews.length} reviews <StarRating rating={average_rating} /></p>
         </div>
+        {currentUserId && !userReview && (
+          <section>
+            <h3>Leave a Review</h3>
+            <ReviewForm productId={product.id} />
+          </section>
+        )}
         {reviews.map((review) => (
           <div key={review.id} className={styles['review-box']}>
             <StarRating rating={review.rating} />
             <p>{review.comment}</p>
             <small>{review.user_name} — {new Date(review.created_at).toLocaleDateString()}</small>
+
+            {currentUserId && review.customer_id === currentUserId && (
+              <DeleteReviewButton reviewId={review.id} />
+            )}
           </div>
         ))}
       </section>

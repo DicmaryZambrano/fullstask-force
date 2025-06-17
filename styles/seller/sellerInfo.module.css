@@ -1,0 +1,40 @@
+.sellerInfo {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: var(--neutralColorLight);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.sellerInfo img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primaryColor);
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.sellerInfo h1 {
+  margin-bottom: 1.5rem;
+}
+
+.sellerInfo p {
+  font-size: 1.6rem;
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 600px) {
+  .sellerInfo {
+    padding: 1.5rem;
+  }
+
+  .sellerInfo h1 {
+    font-size: 2.5rem;
+  }
+
+  .sellerInfo p {
+    font-size: 1.4rem;
+  }
+}
