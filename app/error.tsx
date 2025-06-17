@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/home/not-found.module.css';
+import Link from 'next/link';
 
 export default function ErrorPage() {
   return (
@@ -21,7 +22,7 @@ export default function ErrorPage() {
         <div className={styles.buttonsCon}>
           <div className={styles.actionLinkWrap}>
             <button onClick={() => history.back()} className={styles.linkButton}>Try Again</button>
-            <a href="/" className={styles.linkButton}>Go to Home Page</a>
+            <Link href="/" className={styles.linkButton}>Go to Home Page</Link>
           </div>
         </div>
       </div>

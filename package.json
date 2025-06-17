@@ -16,9 +16,11 @@
     "imagekit": "^6.0.0",
     "next": "15.3.2",
     "next-auth": "5.0.0-beta.28",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
+    "resend": "^4.6.0",
+    "uuid": "^11.1.0",
     "zod": "^3.25.60"
   },
   "devDependencies": {

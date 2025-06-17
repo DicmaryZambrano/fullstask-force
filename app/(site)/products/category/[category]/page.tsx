@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+
+import { use, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getCategories, getProductsByCategory } from '@/database/database';
 import ProductCardCategory from '@/components/products/ProductCardCategory';
 import FiltersSidebar from '@/components/products/FiltersSidebar';
@@ -22,6 +24,8 @@ export default function CategoryPage({
 }: {
   params: Promise<{ category: string }>;
 }) {
+  const router = useRouter();
+  const { category } = use(params); // ✅ desenrollar la promesa aquí
   const [filters, setFilters] = useState({
     minPrice: '',
     maxPrice: '',
@@ -34,15 +38,18 @@ export default function CategoryPage({
 
   useEffect(() => {
     const fetchCategoryId = async () => {
-      const resolvedParams = await params;
       const categories = await getCategories();
       const currentCategory = categories.find(
-        (c) => slugify(c.name) === resolvedParams.category
+        (c) => slugify(c.name) === category
       );
-      setCategoryId(currentCategory ? String(currentCategory.id) : null);
+      if (currentCategory) {
+        setCategoryId(String(currentCategory.id));
+      } else {
+        router.push('/not-found');
+      }
     };
     fetchCategoryId();
-  }, [params]);
+  }, [category, router]);
 
   useEffect(() => {
     if (!categoryId) return;

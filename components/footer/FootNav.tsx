@@ -13,7 +13,7 @@ export default function FootNav({
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <Link href={`/products/${slugify(category.name)}`}>
+            <Link href={`/products/category/${slugify(category.name)}`}>
               {category.name}
             </Link>
           </li>

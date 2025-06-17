@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/home/not-found.module.css';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
@@ -21,7 +22,7 @@ export default function NotFound() {
         <div className={styles.buttonsCon}>
           <div className={styles.actionLinkWrap}>
             <button onClick={() => history.back()} className={styles.linkButton}>Go Back</button>
-            <a href="/" className={styles.linkButton}>Go to Home Page</a>
+            <Link href="/" className={styles.linkButton}>Go to Home Page</Link>
           </div>
         </div>
       </div>

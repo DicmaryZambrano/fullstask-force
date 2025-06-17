@@ -1,3 +1,4 @@
+/* Main container for cards */
 .cardContainer {
   margin-top: 6rem;
   display: grid;
@@ -6,14 +7,17 @@
   gap: 2rem;
 }
 
+/* Real title style */
 .featuredTitle {
   font-size: 3.2rem;
 }
 
+/* Card style */
 .featuredCard {
   border: 1.5px solid var(--neutralColorBase);
   padding: 4rem;
   width: 100%;
+  box-sizing: border-box;
   box-shadow: 0px 0px 56.4px -19px rgba(0, 0, 0, 0.25);
 }
 
@@ -21,6 +25,7 @@
   margin-bottom: 2rem;
 }
 
+/* Grid for real products */
 .productGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -39,39 +44,55 @@
   width: 123.24px;
 }
 
-@media (max-width: 1190px) {
-  .cardContainer {
-    grid-template-columns: 1fr 1fr;
-  }
-  .cardContainer div:nth-of-type(n + 3) {
-    display: none;
-  }
-  .featuredCard {
-    width: 90%;
-    padding: 2rem;
-  }
+/* --- Skeleton Styles --- */
+
+/* Centered skeleton title */
+.skeletonTitle {
+  width: 60%;
+  height: 3.2rem;
+  margin: 0 auto 2rem auto;
+  background-color: #e2e8f0;
+  position: relative;
+  overflow: hidden;
 }
 
-@media (max-width: 600px) {
-  .cardContainer {
-    grid-template-columns: 1fr;
-  }
-  .cardContainer div:nth-of-type(n + 2) {
-    display: none;
-  }
+.skeletonTitle::after {
+  content: '';
+  position: absolute;
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 1.5s infinite;
 }
 
-/* 
+/* Skeleton grid for products */
 .skeletonProductGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-items: center;
   gap: 2rem;
 }
 
+/* Skeleton item container */
+.skeletonItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Skeleton image */
 .skeletonProduct {
   width: 131px;
   height: 101px;
-  border-radius: 8px;
   background-color: #e2e8f0;
   position: relative;
   overflow: hidden;
@@ -80,7 +101,10 @@
 .skeletonProduct::after {
   content: '';
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
   transform: translateX(-100%);
   background-image: linear-gradient(
     90deg,
@@ -90,21 +114,14 @@
     rgba(255, 255, 255, 0)
   );
   animation: shimmer 1.5s infinite;
-  border-radius: 8px;
 }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
+/* Skeleton text */
 .skeletonText {
-  width: 100px;
-  height: 16px;
-  margin: 1rem auto 0 auto;
+  width: 100%;
+  height: 1.5em;
+  margin-top: 1rem;
   background-color: #e2e8f0;
-  border-radius: 4px;
   position: relative;
   overflow: hidden;
 }
@@ -112,7 +129,10 @@
 .skeletonText::after {
   content: '';
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
   transform: translateX(-100%);
   background-image: linear-gradient(
     90deg,
@@ -122,5 +142,39 @@
     rgba(255, 255, 255, 0)
   );
   animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-} */
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* --- Responsive adjustments --- */
+
+/* Tablet screens */
+@media (max-width: 1190px) {
+  .cardContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .featuredCard {
+    width: 90%;
+    padding: 2rem;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 710px) {
+  .cardContainer {
+    grid-template-columns: 1fr;
+  }
+  .featuredCard {
+    width: 100%;
+    padding: 1rem;
+  }
+  .skeletonProductGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,114 @@
+
+
+.svg {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  margin-top: -250px;
+  margin-left: -400px;
+}
+
+.polygon1, .polygon2, .polygon3, .polygon4, .polygon5 {
+  fill: none;
+  stroke-width: 6;
+  animation: float 1s infinite ease-in-out alternate;
+}
+
+.polygon1 {
+  stroke: #007FB2;
+  animation-delay: 0s;
+}
+.polygon2 {
+  stroke: #EF4A5B;
+  animation-delay: 0.2s;
+}
+.polygon3 {
+  stroke: #795D9C;
+  animation-delay: 0.4s;
+}
+.polygon4 {
+  stroke: #F2773F;
+  animation-delay: 0.6s;
+}
+.polygon5 {
+  stroke: #36B455;
+  animation-delay: 0.8s;
+}
+
+@keyframes float {
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+.messageBox {
+  height: 200px;
+  width: 380px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: 50px;
+  color: #000000;
+  font-family: var(--font-katibeh);
+  font-weight: 300;
+}
+
+.messageBox h1 {
+  font-size: 9rem;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
+
+.messageBox p {
+  font-size: 4rem;
+}
+
+.buttonsCon {
+  margin-top: 40px;
+}
+
+.actionLinkWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.linkButton {
+  height: 50px;
+  padding: 0 16px;
+  display: inline-flex;     /* inline-flex para que se comporte como inline */
+  align-items: center;      /* centra verticalmente */
+  justify-content: center;  /* centra horizontalmente */
+  font-family: var(--font-katibeh);
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: var(--primaryColorBase);
+  border-radius: 4px;
+  color: #FFF;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: background-color 0.3s linear;
+}
+
+
+
+.linkButton:hover {
+  background-color: var(--primaryColorDark, #5A5C6C); /* puedes definir ese color o usar el código directamente */
+}
+
+
+@media (max-width: 450px) {
+  .svg {
+    margin-left: -190px;
+  }
+  .messageBox {
+    margin-left: -190px;
+    text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .svg {
+    display: none;
+  }
+}
