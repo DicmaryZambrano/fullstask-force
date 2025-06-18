@@ -34,7 +34,7 @@ export default async function SideNav() {
               {' '}
               <div className={styles.sideButton}>
                 <Image
-                  src={'icons/dashboard-icons/home.svg'}
+                  src={'/icons/dashboard-icons/home.svg'}
                   alt='user icon'
                   width={35}
                   height={25}
@@ -57,7 +57,7 @@ export default async function SideNav() {
               <Button
                 buttonText={
                   <Image
-                    src={'icons/dashboard-icons/logout.svg'}
+                    src={'/icons/dashboard-icons/logout.svg'}
                     alt='Log out Button'
                     width={20}
                     height={20}

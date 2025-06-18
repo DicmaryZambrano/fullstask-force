@@ -12,7 +12,7 @@ import {
   ProductFromCollection,
   CollectionDetails,
   ProductReviewSummary,
-  Review
+  Review,
 } from '../types/types';
 import { notFound } from 'next/navigation';
 import { validate as uuidValidate } from 'uuid';
@@ -23,7 +23,7 @@ const sql = neon(URL);
 export async function getCategories() {
   try {
     const result = await sql`SELECT id, name FROM categories`;
-        if (!result || result.length === 0) {
+    if (!result || result.length === 0) {
       notFound();
     }
     return result as { id: number; name: string }[];
@@ -95,7 +95,7 @@ export async function getProductsByCategory(
       WHERE p.category_id = ${categoryId}
       GROUP BY p.id, u.first_name, u.last_name
     `;
-      if (!result || result.length === 0) {
+    if (!result || result.length === 0) {
       notFound();
     }
 
@@ -166,7 +166,7 @@ export async function getProductById(productId: string) {
 export async function getFullProductById(
   productId: string
 ): Promise<FullProduct> {
-    if (!uuidValidate(productId)) {
+  if (!uuidValidate(productId)) {
     notFound();
   }
 
@@ -190,8 +190,8 @@ export async function getFullProductById(
       WHERE p.id = ${productId}
       GROUP BY p.id, u.first_name, u.last_name;
     `;
-          if (result.length === 0) {
-      notFound(); 
+    if (result.length === 0) {
+      notFound();
     }
 
     return result[0] as FullProduct;
@@ -202,7 +202,9 @@ export async function getFullProductById(
 }
 
 /* Get Reviews by Product Id */
-export async function getReviewsByProductId(productId: string): Promise<ProductReviewSummary> {
+export async function getReviewsByProductId(
+  productId: string
+): Promise<ProductReviewSummary> {
   try {
     // Fetch all reviews + reviewer name
     const reviews = await sql`
@@ -219,14 +221,12 @@ export async function getReviewsByProductId(productId: string): Promise<ProductR
       ORDER BY r.created_at DESC;
     `;
 
-  
     // Calculate the average rating
     const averageResult = await sql`
       SELECT COALESCE(AVG(rating), 0) AS average_rating
       FROM reviews
       WHERE product_id = ${productId};
     `;
-
 
     const average_rating = parseFloat(averageResult[0].average_rating);
 
@@ -251,7 +251,7 @@ export async function getProductsByIds(
       FROM products
       WHERE id = ANY(${productIds});
     `;
-        if (!result || result.length === 0) {
+    if (!result || result.length === 0) {
       notFound();
     }
 
@@ -322,9 +322,8 @@ export async function deleteProduct(productId: string) {
 export async function getUserByEmail(email: string): Promise<User | null> {
   try {
     const result = await sql`SELECT * FROM public.users WHERE email = ${email}`;
-    
-  
-    return (result[0] as User) ;
+
+    return result[0] as User;
   } catch (error) {
     console.error('Error looking for the user', error);
     throw error;
@@ -360,7 +359,6 @@ export async function updateUserById(data: {
   phone_number: string;
   address: string;
 }) {
-
   const { id, first_name, last_name, phone_number, address } = data;
 
   try {
@@ -373,7 +371,7 @@ export async function updateUserById(data: {
       WHERE id = ${id}
       RETURNING id, email, first_name, last_name, phone_number, role, address, profile_picture_url
     `;
- 
+
     return result[0] as UserProfile;
   } catch (error) {
     console.error('Error updating user:', error);
@@ -435,7 +433,7 @@ export async function getCategoryDetailsById(id: string): Promise<Category> {
         WHERE id = ${id}
         ORDER BY name ASC
     `;
-if (!result || result.length === 0) {
+    if (!result || result.length === 0) {
       notFound();
     }
     return result[0] as Category;
@@ -472,9 +470,9 @@ export async function getProductsByCollectionId(
       JOIN collection_products cp ON p.id = cp.product_id
       WHERE cp.collection_id = ${collection_id}
           `;
-          if (!result || result.length === 0) {
-      notFound();
-    }
+    // if (!result || result.length === 0) {
+    //   notFound();
+    // }
 
     return result as ProductFromCollection[];
   } catch (error) {
@@ -495,7 +493,7 @@ export async function getCollectionDetailsById(
       FROM collections 
       WHERE id = ${collection_id}
     `;
-if (!result || result.length === 0) {
+    if (!result || result.length === 0) {
       notFound();
     }
     return result[0] as CollectionDetails;
@@ -558,7 +556,6 @@ export async function createCollectionInDb(
   name: string,
   description: string
 ) {
-
   try {
     await sql`
       INSERT INTO collections (id, seller_id, name, description)
@@ -673,7 +670,9 @@ export async function getSellerCollectionsWithProducts(sellerId: string) {
 
   const collectionsWithProducts = await Promise.all(
     collections.map(async (collection) => {
-      const products = await getFullProductsByCollectionId(collection.id.toString());
+      const products = await getFullProductsByCollectionId(
+        collection.id.toString()
+      );
       return { ...collection, products };
     })
   );
