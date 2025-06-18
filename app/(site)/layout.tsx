@@ -19,14 +19,12 @@ export default async function RootLayout({
   const categories = await getCategories();
 
   return (
-    <html lang='en'>
-      <body className={`${roboto.variable} ${katibeh.variable}`}>
+    
         <SessionProvider>
           <Header categories={categories} />
           <main>{children}</main>
           <Footer categories={categories} />
         </SessionProvider>
-      </body>
-    </html>
+    
   );
 }
