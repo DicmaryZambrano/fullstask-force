@@ -29,7 +29,7 @@ export default function DynamicLinks({ role }: Props) {
           }`}
         >
           <Image
-            src={'icons/dashboard-icons/user.svg'}
+            src={'/icons/dashboard-icons/user.svg'}
             alt='user icon'
             width={35}
             height={25}
@@ -47,7 +47,7 @@ export default function DynamicLinks({ role }: Props) {
               }`}
             >
               <Image
-                src={'icons/dashboard-icons/clipboard-list.svg'}
+                src={'/icons/dashboard-icons/clipboard-list.svg'}
                 alt='user icon'
                 width={35}
                 height={25}
@@ -63,7 +63,7 @@ export default function DynamicLinks({ role }: Props) {
               }`}
             >
               <Image
-                src={'icons/dashboard-icons/tag.svg'}
+                src={'/icons/dashboard-icons/tag.svg'}
                 alt='user icon'
                 width={35}
                 height={25}
@@ -89,7 +89,7 @@ export default function DynamicLinks({ role }: Props) {
           <Link href={'/favorites'}>
             <div className={styles.sideButton}>
               <Image
-                src={'icons/dashboard-icons/heart.svg'}
+                src={'/icons/dashboard-icons/heart.svg'}
                 alt='user icon'
                 width={35}
                 height={25}
