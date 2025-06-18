@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 import SideNav from '@/components/dashboard/sidenav';
-import { roboto, katibeh } from '@/components/fonts';
 import styles from '@/styles/dashboard/sidenav.module.css';
 import { SessionProvider } from 'next-auth/react';
 
