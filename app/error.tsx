@@ -2,10 +2,10 @@
 
 import '@/styles/globals.css'; 
 import styles from '@/styles/home/not-found.module.css';
-
+import Link from 'next/link';
 import { roboto, katibeh } from '@/components/fonts';
 
-export default function NotFound() {
+export default function ErrorPage() {
   return (
     <div className={`${roboto.variable} ${katibeh.variable}`}>
       <svg className={styles.svg} width="380px" height="500px" viewBox="0 0 837 1045" xmlns="http://www.w3.org/2000/svg">
@@ -19,18 +19,12 @@ export default function NotFound() {
       </svg>
 
       <div className={styles.messageBox}>
-        <h1>404</h1>
-        <p>Page not found</p>
+        <h1>500</h1>
+        <p>Something went wrong</p>
         <div className={styles.buttonsCon}>
           <div className={styles.actionLinkWrap}>
-            <button onClick={() => history.back()} className={styles.linkButton}>Go Back</button>
-            <button
-  className={styles.linkButton}
-  onClick={() => window.location.replace('/')}
->
-  Go to Home Page
-</button>
-
+            <button onClick={() => history.back()} className={styles.linkButton}>Try Again</button>
+            <Link href="/" className={styles.linkButton}>Go to Home Page</Link>
           </div>
         </div>
       </div>
