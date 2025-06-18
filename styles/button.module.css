@@ -9,9 +9,43 @@
   border: none;
   transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
+  color: #333;
 }
 
 .button:hover {
   background-color: var(--primaryColorDark2);
+  color: white;
+}
+
+.button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button[disabled]:hover {
+  background-color: var(--primaryColorBase);
+  cursor: not-allowed;
+  color: #333;
+}
+
+.danger {
+  background-color: #720d0d;
+  color: white;
+}
+
+.danger:hover {
+  background-color: #2b0202;
+  color: white;
+}
+
+.danger[disabled] {
+  background-color: #720d0d;
+  color: white;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.danger[disabled]:hover {
+  background-color: #720d0d;
   color: white;
 }

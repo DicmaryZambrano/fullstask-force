@@ -3,7 +3,6 @@ import { neon } from '@neondatabase/serverless';
 import {
   Product,
   ProductWithRatingAndSeller,
-  ProductWithRating,
   User,
   UserProfile,
   ProductsListed,
@@ -12,15 +11,21 @@ import {
   CollectionList,
   ProductFromCollection,
   CollectionDetails,
+  ProductReviewSummary,
+  Review
 } from '../types/types';
+import { notFound } from 'next/navigation';
+import { validate as uuidValidate } from 'uuid';
 
 const URL = process.env.DATABASE_URL as string;
+const sql = neon(URL);
 
 export async function getCategories() {
-  const sql = neon(URL);
-
   try {
     const result = await sql`SELECT id, name FROM categories`;
+        if (!result || result.length === 0) {
+      notFound();
+    }
     return result as { id: number; name: string }[];
   } catch (error) {
     console.error('Failed to fetch categories:', error);
@@ -29,18 +34,20 @@ export async function getCategories() {
 }
 
 export async function getFeaturedCategories() {
-  const sql = neon(URL);
-
-  const result = await sql`SELECT id, name
+  try {
+    const result = await sql`SELECT id, name
       FROM categories
       ORDER BY RANDOM()
       LIMIT 3;`;
 
-  return result as { id: number; name: string }[];
+    return result as { id: number; name: string }[];
+  } catch (error) {
+    console.error('Failed to fetch  featured categories:', error);
+    throw error;
+  }
 }
 
 export async function getFeaturedProducts(category: string) {
-  const sql = neon(URL);
   try {
     const result = await sql`
       SELECT 
@@ -66,12 +73,13 @@ export async function getFeaturedProducts(category: string) {
     throw error;
   }
 }
-/* Get all products by category with their average ratings */
+/* Get all products by category with their average ratings and Seller Name */
 export async function getProductsByCategory(
   categoryId: string
-): Promise<ProductWithRating[]> {
-  const sql = neon(URL);
-
+): Promise<ProductWithRatingAndSeller[]> {
+  if (!uuidValidate(categoryId)) {
+    notFound();
+  }
   try {
     const result = await sql`
       SELECT 
@@ -79,14 +87,19 @@ export async function getProductsByCategory(
         p.name, 
         p.price, 
         p.image_url,
-        COALESCE(AVG(r.rating), 0) AS average_rating
+        COALESCE(AVG(r.rating), 0) AS average_rating,
+        u.first_name || ' ' || u.last_name AS seller_name
       FROM products p
       LEFT JOIN reviews r ON p.id = r.product_id
+      JOIN users u ON p.seller_id = u.id
       WHERE p.category_id = ${categoryId}
-      GROUP BY p.id;
+      GROUP BY p.id, u.first_name, u.last_name
     `;
+      if (!result || result.length === 0) {
+      notFound();
+    }
 
-    return result as ProductWithRating[];
+    return result as ProductWithRatingAndSeller[];
   } catch (error) {
     console.error('Failed to fetch products by category with ratings:', error);
     throw error;
@@ -97,8 +110,6 @@ export async function getProductsByCategory(
 export async function getHomeProductsByCategory(
   categoryId: string
 ): Promise<ProductWithRatingAndSeller[]> {
-  const sql = neon(URL);
-
   try {
     const result = await sql`
       SELECT 
@@ -129,8 +140,6 @@ export async function getHomeProductsByCategory(
 
 /* Gets basic product information by id*/
 export async function getProductById(productId: string) {
-  const sql = neon(URL);
-
   try {
     const result = await sql`
       SELECT 
@@ -144,8 +153,10 @@ export async function getProductById(productId: string) {
       FROM products
       WHERE id = ${productId};
     `;
-
-    return result.length > 0 ? result[0] : null;
+    if (result.length === 0) {
+      notFound();
+    }
+    return result[0];
   } catch (error) {
     console.error('Failed to fetch product by ID:', error);
     throw error;
@@ -155,7 +166,9 @@ export async function getProductById(productId: string) {
 export async function getFullProductById(
   productId: string
 ): Promise<FullProduct> {
-  const sql = neon(URL);
+    if (!uuidValidate(productId)) {
+    notFound();
+  }
 
   try {
     const result = await sql`
@@ -177,6 +190,9 @@ export async function getFullProductById(
       WHERE p.id = ${productId}
       GROUP BY p.id, u.first_name, u.last_name;
     `;
+          if (result.length === 0) {
+      notFound(); 
+    }
 
     return result[0] as FullProduct;
   } catch (error) {
@@ -186,14 +202,13 @@ export async function getFullProductById(
 }
 
 /* Get Reviews by Product Id */
-export async function getReviewsByProductId(productId: string) {
-  const sql = neon(URL);
-
+export async function getReviewsByProductId(productId: string): Promise<ProductReviewSummary> {
   try {
     // Fetch all reviews + reviewer name
     const reviews = await sql`
       SELECT 
         r.id,
+        r.customer_id,
         r.rating,
         r.comment,
         r.created_at,
@@ -204,6 +219,7 @@ export async function getReviewsByProductId(productId: string) {
       ORDER BY r.created_at DESC;
     `;
 
+  
     // Calculate the average rating
     const averageResult = await sql`
       SELECT COALESCE(AVG(rating), 0) AS average_rating
@@ -211,11 +227,12 @@ export async function getReviewsByProductId(productId: string) {
       WHERE product_id = ${productId};
     `;
 
+
     const average_rating = parseFloat(averageResult[0].average_rating);
 
     return {
       average_rating,
-      reviews,
+      reviews: reviews as Review[],
     };
   } catch (error) {
     console.error('Failed to fetch reviews with reviewer names:', error);
@@ -228,15 +245,15 @@ export async function getProductsByIds(
   productIds: string[]
 ): Promise<Product[]> {
   if (productIds.length === 0) return [];
-
-  const sql = neon(URL);
-
   try {
     const result = await sql`
       SELECT id, name, price, image_url, description, category_id
       FROM products
       WHERE id = ANY(${productIds});
     `;
+        if (!result || result.length === 0) {
+      notFound();
+    }
 
     return result as Product[]; // <--- type assertion
   } catch (error) {
@@ -247,8 +264,6 @@ export async function getProductsByIds(
 
 /* CRUD for Products */
 export async function createProduct(product: Product) {
-  const sql = neon(URL);
-
   const { name, description, price, image_url, category_id, seller_id } =
     product;
 
@@ -289,8 +304,6 @@ export async function createProduct(product: Product) {
 
 /* Delete Product */
 export async function deleteProduct(productId: string) {
-  const sql = neon(URL);
-
   try {
     await sql`
       DELETE FROM products
@@ -307,11 +320,11 @@ export async function deleteProduct(productId: string) {
 // Get a user from the database using the email as a search parameter
 
 export async function getUserByEmail(email: string): Promise<User | null> {
-  const sql = neon(URL);
-
   try {
     const result = await sql`SELECT * FROM public.users WHERE email = ${email}`;
-    return (result[0] as User) ?? null;
+    
+  
+    return (result[0] as User) ;
   } catch (error) {
     console.error('Error looking for the user', error);
     throw error;
@@ -319,8 +332,6 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 }
 
 export async function getUserById(id: string) {
-  const sql = neon(URL);
-
   try {
     const result = await sql`SELECT id,
     email,
@@ -332,6 +343,9 @@ export async function getUserById(id: string) {
     profile_picture_url
 
     FROM public.users WHERE id = ${id}`;
+    if (!result || result.length === 0) {
+      notFound();
+    }
     return result[0] as UserProfile;
   } catch (error) {
     console.error('Error looking for the user', error);
@@ -346,7 +360,7 @@ export async function updateUserById(data: {
   phone_number: string;
   address: string;
 }) {
-  const sql = neon(URL);
+
   const { id, first_name, last_name, phone_number, address } = data;
 
   try {
@@ -359,7 +373,7 @@ export async function updateUserById(data: {
       WHERE id = ${id}
       RETURNING id, email, first_name, last_name, phone_number, role, address, profile_picture_url
     `;
-
+ 
     return result[0] as UserProfile;
   } catch (error) {
     console.error('Error updating user:', error);
@@ -368,7 +382,6 @@ export async function updateUserById(data: {
 }
 
 export async function updateUserPhoto(id: string, photoUrl: string) {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     await sql`
       UPDATE public.users
@@ -382,7 +395,6 @@ export async function updateUserPhoto(id: string, photoUrl: string) {
 }
 
 export async function updateProductPhoto(id: string, image_url: string) {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     await sql`
       UPDATE public.products
@@ -398,7 +410,6 @@ export async function updateProductPhoto(id: string, image_url: string) {
 export async function getProductsBySellerId(
   id: string
 ): Promise<ProductsListed[]> {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     const result = await sql`
         SELECT p.id, p.name, p.price, p.updated_at, p.image_url
@@ -407,7 +418,9 @@ export async function getProductsBySellerId(
         WHERE u.id = ${id}
         ORDER BY p.updated_at DESC
     `;
-
+    if (!result || result.length === 0) {
+      notFound();
+    }
     return result as ProductsListed[];
   } catch (error) {
     console.error('Failed to fetch products:', error);
@@ -416,14 +429,15 @@ export async function getProductsBySellerId(
 }
 
 export async function getCategoryDetailsById(id: string): Promise<Category> {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     const result = await sql`
         SELECT id, name FROM categories c
         WHERE id = ${id}
         ORDER BY name ASC
     `;
-
+if (!result || result.length === 0) {
+      notFound();
+    }
     return result[0] as Category;
   } catch (error) {
     console.error('Failed to fetch categories:', error);
@@ -434,11 +448,13 @@ export async function getCategoryDetailsById(id: string): Promise<Category> {
 export async function getCollectionsBySellerId(
   id: string
 ): Promise<CollectionList[]> {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     const result = await sql`
       SELECT * FROM collections WHERE seller_id = ${id}
     `;
+    if (!result || result.length === 0) {
+      notFound();
+    }
 
     return result as CollectionList[];
   } catch (error) {
@@ -450,14 +466,15 @@ export async function getCollectionsBySellerId(
 export async function getProductsByCollectionId(
   collection_id: string
 ): Promise<ProductFromCollection[]> {
-  const sql = neon(process.env.DATABASE_URL!);
-
   try {
     const result = await sql`SELECT p.id, p.name, p.image_url
       FROM products p
       JOIN collection_products cp ON p.id = cp.product_id
       WHERE cp.collection_id = ${collection_id}
           `;
+          if (!result || result.length === 0) {
+      notFound();
+    }
 
     return result as ProductFromCollection[];
   } catch (error) {
@@ -469,8 +486,6 @@ export async function getProductsByCollectionId(
 export async function getCollectionDetailsById(
   collection_id: string
 ): Promise<CollectionDetails | null> {
-  const sql = neon(process.env.DATABASE_URL!);
-
   try {
     const result = await sql`
       SELECT 
@@ -480,7 +495,9 @@ export async function getCollectionDetailsById(
       FROM collections 
       WHERE id = ${collection_id}
     `;
-
+if (!result || result.length === 0) {
+      notFound();
+    }
     return result[0] as CollectionDetails;
   } catch (error) {
     console.error('Failed to fetch collection details:', error);
@@ -492,8 +509,6 @@ export async function deleteProductFromCollection(
   collection_id: string,
   product_id: string
 ) {
-  const sql = neon(process.env.DATABASE_URL!);
-
   try {
     await sql`
       DELETE FROM collection_products WHERE collection_id = ${collection_id} AND product_id = ${product_id}
@@ -508,7 +523,6 @@ export async function addProductToCollection(
   collection_id: string,
   product_id: string
 ) {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     await sql`
       INSERT INTO collection_products (collection_id, product_id)
@@ -526,7 +540,6 @@ export async function updateCollection(
   name: string,
   description: string
 ) {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     await sql`
       UPDATE collections
@@ -545,7 +558,6 @@ export async function createCollectionInDb(
   name: string,
   description: string
 ) {
-  const sql = neon(process.env.DATABASE_URL!);
 
   try {
     await sql`
@@ -559,11 +571,112 @@ export async function createCollectionInDb(
 }
 
 export async function deleteCollectionById(collectionId: string) {
-  const sql = neon(process.env.DATABASE_URL!);
   try {
     await sql`DELETE FROM collections WHERE id = ${collectionId}`;
   } catch (error) {
     console.error('Failed to delete collection:', error);
     throw error;
   }
+}
+
+/*
+export async function getPaginatedProductsBySellerId(
+  sellerId: string,
+  page: number = 1,
+  pageSize: number = 8
+): Promise<ProductWithRatingAndSeller[]> {
+  const offset = (page - 1) * pageSize;
+
+  const result = await sql`
+    SELECT p.id, p.name, p.image_url, p.price, p.average_rating, s.name AS seller_name, s.id AS seller_id
+    FROM products p
+    JOIN sellers s ON p.seller_id = s.id
+    WHERE s.id = ${sellerId}
+    ORDER BY p.name
+    LIMIT ${pageSize}
+    OFFSET ${offset}
+  `;
+
+  return result as ProductWithRatingAndSeller[];
+}
+
+export async function getProductCountBySellerId(
+  sellerId: string
+): Promise<number> {
+  const result = await sql`
+    SELECT COUNT(*)::int AS count
+    FROM products
+    WHERE seller_id = ${sellerId}
+  `;
+  return result[0]?.count || 0;
+}*/
+
+export async function getFullSellerProductData(
+  sellerId: string
+): Promise<ProductWithRatingAndSeller[]> {
+  try {
+    const result = await sql`
+      SELECT 
+        p.id,
+        p.name,
+        p.price,
+        p.image_url,
+        p.category_id,
+        COALESCE(AVG(r.rating), 0) AS average_rating,
+        u.first_name || ' ' || u.last_name AS seller_name
+      FROM products p
+      LEFT JOIN reviews r ON p.id = r.product_id
+      JOIN users u ON p.seller_id = u.id
+      WHERE p.seller_id = ${sellerId}
+      GROUP BY p.id, u.first_name, u.last_name
+      ORDER BY p.name;
+    `;
+
+    return result as ProductWithRatingAndSeller[];
+  } catch (error) {
+    console.error('Failed to fetch seller products with ratings:', error);
+    throw error;
+  }
+}
+
+export async function getFullProductsByCollectionId(
+  collection_id: string
+): Promise<ProductWithRatingAndSeller[]> {
+  try {
+    const result = await sql`
+      SELECT 
+        p.id,
+        p.name,
+        p.description,
+        p.price,
+        p.image_url,
+        p.category_id,
+        COALESCE(AVG(r.rating), 0) AS average_rating,
+        u.first_name || ' ' || u.last_name AS seller_name
+      FROM products p
+      JOIN collection_products cp ON p.id = cp.product_id
+      LEFT JOIN reviews r ON p.id = r.product_id
+      JOIN users u ON p.seller_id = u.id
+      WHERE cp.collection_id = ${collection_id}
+      GROUP BY p.id, u.first_name, u.last_name
+    `;
+
+    return result as ProductWithRatingAndSeller[];
+  } catch (error) {
+    console.error('Failed to fetch collection products with details:', error);
+    throw error;
+  }
+}
+
+export async function getSellerCollectionsWithProducts(sellerId: string) {
+  const collections = await getCollectionsBySellerId(sellerId);
+
+  const collectionsWithProducts = await Promise.all(
+    collections.map(async (collection) => {
+      const products = await getFullProductsByCollectionId(collection.id.toString());
+      return { ...collection, products };
+    })
+  );
+
+  return collectionsWithProducts;
 }

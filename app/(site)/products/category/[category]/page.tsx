@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getCategories, getProductsByCategory } from '@/database/database';
 import ProductCardCategory from '@/components/products/ProductCardCategory';
 import FiltersSidebar from '@/components/products/FiltersSidebar';
-import { ProductWithRating } from '@/types/types';
+import { ProductWithRatingAndSeller } from '@/types/types';
 import { slugify } from '@/lib/slugify';
 import styles from '@/styles/products/CategoryPage.module.css';
 
@@ -22,27 +23,32 @@ export default function CategoryPage({
 }: {
   params: Promise<{ category: string }>;
 }) {
+  const router = useRouter();
+  const { category } = use(params); // ✅ desenrollar la promesa aquí
   const [filters, setFilters] = useState({
     minPrice: '',
     maxPrice: '',
     minRating: '',
     sortOrder: '',
   });
-  const [products, setProducts] = useState<ProductWithRating[]>([]);
+  const [products, setProducts] = useState<ProductWithRatingAndSeller[]>([]);
   const [loading, setLoading] = useState(true);
   const [categoryId, setCategoryId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCategoryId = async () => {
-      const resolvedParams = await params;
       const categories = await getCategories();
       const currentCategory = categories.find(
-        (c) => slugify(c.name) === resolvedParams.category
+        (c) => slugify(c.name) === category
       );
-      setCategoryId(currentCategory ? String(currentCategory.id) : null);
+      if (currentCategory) {
+        setCategoryId(String(currentCategory.id));
+      } else {
+        window.location.href = '/not-found';
+      }
     };
     fetchCategoryId();
-  }, [params]);
+  }, [category, router]);
 
   useEffect(() => {
     if (!categoryId) return;
