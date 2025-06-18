@@ -24,36 +24,50 @@ export default async function SideNav() {
           />
         </Link>
 
-        <DynamicLinks role={userInfo?.role ?? 'customer'} />
+        <div className={styles.navBar}>
+          <DynamicLinks role={userInfo?.role ?? 'customer'} />
 
-        <div className={styles.navSpacing}></div>
+          <div className={styles.navSpacing}></div>
 
-        <div className={styles.bottonMenu}>
-          <Link href={'/'}>
-            {' '}
-            <div className={styles.sideButton}>
-              <Image
-                src={'icons/dashboard-icons/home.svg'}
-                alt='user icon'
-                width={35}
-                height={25}
+          <div className={styles.bottonMenu}>
+            <Link href={'/'}>
+              {' '}
+              <div className={styles.sideButton}>
+                <Image
+                  src={'icons/dashboard-icons/home.svg'}
+                  alt='user icon'
+                  width={35}
+                  height={25}
+                />
+                <p>Home</p>
+              </div>
+            </Link>
+
+            <form
+              action={async () => {
+                'use server';
+                await signOut();
+              }}
+            >
+              <Button
+                buttonText='Sign Out'
+                type='submit'
+                className={styles.dashboardButton}
               />
-              <p>Home</p>
-            </div>
-          </Link>
-
-          <form
-            action={async () => {
-              'use server';
-              await signOut();
-            }}
-          >
-            <Button
-              buttonText='Sign Out'
-              type='submit'
-              className={styles.dashboardButton}
-            />
-          </form>
+              <Button
+                buttonText={
+                  <Image
+                    src={'icons/dashboard-icons/logout.svg'}
+                    alt='Log out Button'
+                    width={20}
+                    height={20}
+                  />
+                }
+                type='submit'
+                className={styles.dashboardButtonMobile}
+              />
+            </form>
+          </div>
         </div>
       </div>
     </aside>

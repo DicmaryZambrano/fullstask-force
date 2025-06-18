@@ -15,7 +15,7 @@ export default async function CollectionList() {
   const collections = await getCollectionsBySellerId(user!.id as string);
 
   return (
-    <ul>
+    <ul className={styles.ulFlex}>
       {collections.map((collection) => (
         <li key={collection.id} className={styles.productList}>
           <div>

@@ -36,7 +36,7 @@ export default function ProductsListClient({ products }: Props) {
 
   return (
     <>
-      <ul>
+      <ul className={styles.ulFlex}>
         {products.map((product) => (
           <li key={product.id} className={styles.productList}>
             <Image

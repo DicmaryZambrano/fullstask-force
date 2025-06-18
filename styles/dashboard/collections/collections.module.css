@@ -105,3 +105,63 @@ form .createCollectBtn {
 .deleteBtnHome:hover {
   background-color: rgb(196, 40, 40);
 }
+
+@media (max-width: 1300px) {
+  .productList {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .productListEdit {
+    justify-items: center;
+  }
+
+  .collectionBtns {
+    margin-top: 5rem;
+    margin-left: 0;
+  }
+
+  .productList img {
+    width: 15rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .productList {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+    max-width: 90%;
+    width: 100%;
+  }
+  .productList img {
+    width: 15rem;
+    height: 15rem;
+  }
+  .productList h3 {
+    font-size: 2.2rem;
+  }
+
+  .productList p {
+    font-size: 2rem;
+  }
+
+  .ulFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .productsMenu {
+    flex-direction: column;
+    align-items: center;
+    gap: 0rem;
+    margin-bottom: 5rem;
+  }
+
+  .collectionBtns {
+    margin: 0;
+  }
+}
