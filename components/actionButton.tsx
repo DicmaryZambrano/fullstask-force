@@ -1,7 +1,8 @@
 import styles from '@/styles/button.module.css';
+import { ReactNode } from 'react';
 
 interface ButtonProps {
-  buttonText: string;
+  buttonText: string | ReactNode;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

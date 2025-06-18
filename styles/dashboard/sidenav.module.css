@@ -60,3 +60,60 @@
 .dashboardButton {
   width: 100%;
 }
+
+.dashboardButtonMobile {
+  display: none;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .navSpacing {
+    display: none;
+  }
+
+  .navMenu img {
+    width: 100%;
+  }
+
+  .logo {
+    margin-bottom: 1.5rem;
+  }
+
+  .sideButton p {
+    display: none;
+  }
+
+  .navBar {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .bottonMenu {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .upperMenu {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .dashboardLayout {
+    flex-direction: column;
+  }
+
+  .dashboardButton {
+    display: none;
+  }
+
+  .dashboardButtonMobile {
+    display: block;
+    height: 87%;
+  }
+}

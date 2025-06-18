@@ -44,9 +44,12 @@ export default async function ProductsFromCollection({
       {products.length === 0 ? (
         <h3>This collection does not have products yet</h3>
       ) : (
-        <ul>
+        <ul className={styles.ulFlex}>
           {products.map((product) => (
-            <li key={product.id} className={styles.productList}>
+            <li
+              key={product.id}
+              className={`${styles.productList} ${styles.productListEdit}`}
+            >
               <Image
                 src={product.image_url}
                 alt={`Image for ${product.name}`}

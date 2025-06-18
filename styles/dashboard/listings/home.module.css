@@ -75,3 +75,43 @@
   background-color: black;
   color: white;
 }
+
+@media (max-width: 1300px) {
+  .productList {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .productList {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    padding: 3rem;
+  }
+  .productList img {
+    width: 20rem;
+    height: 20rem;
+  }
+  .productList h3 {
+    font-size: 2.2rem;
+  }
+
+  .productList p {
+    font-size: 2.3rem;
+  }
+
+  .ulFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .productsMenu {
+    flex-direction: column;
+    align-items: center;
+    gap: 0rem;
+    margin-bottom: 5rem;
+  }
+}

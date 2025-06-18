@@ -129,3 +129,24 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 1040px) {
+  .profileDisplay {
+    flex-direction: column;
+  }
+  .profileSettings {
+    border: none;
+    padding-left: 1rem;
+  }
+  .editForm input,
+  .editForm select {
+    width: 100%;
+  }
+  .editForm textarea {
+    width: 100%;
+  }
+
+  .profile {
+    padding: 1rem 6rem;
+  }
+}
