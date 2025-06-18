@@ -7,7 +7,6 @@ import FiltersSidebar from '@/components/products/FiltersSidebar';
 import { ProductWithRatingAndSeller } from '@/types/types';
 import { slugify } from '@/lib/slugify';
 import styles from '@/styles/products/CategoryPage.module.css';
-import { notFound } from 'next/navigation';
 
 function SkeletonLoader() {
   return (
