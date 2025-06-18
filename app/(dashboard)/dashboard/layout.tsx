@@ -1,3 +1,5 @@
+'use client';
+
 import '@/styles/globals.css';
 import SideNav from '@/components/dashboard/sidenav';
 import styles from '@/styles/dashboard/sidenav.module.css';
