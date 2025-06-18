@@ -2,7 +2,6 @@
 
 import '@/styles/globals.css'; 
 import styles from '@/styles/home/not-found.module.css';
-import Link from 'next/link';
 import { roboto, katibeh } from '@/components/fonts';
 
 export default function NotFound() {
