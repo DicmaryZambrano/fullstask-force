@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from '@/styles/products/cartButton.module.css';
+import Button from '@/components/actionButton';
 
 export default function AddToCartButton({ productId }: { productId: string }) {
   const [isInCart, setIsInCart] = useState(false);
@@ -23,13 +23,11 @@ export default function AddToCartButton({ productId }: { productId: string }) {
   };
 
   return (
-    <button
-      className={styles['add-to-cart']}
+    <Button
+      buttonText={isInCart ? 'Added' : 'Add to cart'}
       onClick={handleAddToCart}
       disabled={isInCart}
       aria-label={isInCart ? 'Added to cart' : 'Add to cart'}
-    >
-      {isInCart ? 'Added' : 'Add to cart'}
-    </button>
+    />
   );
 }

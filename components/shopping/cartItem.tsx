@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Product } from '@/types/types';
 import styles from '@/styles/shopping/cartItem.module.css';
+import Button from '@/components/actionButton'
 
 interface CartItemProps {
   product: Product;
@@ -25,9 +26,11 @@ export default function CartItem({ product, onRemove }: CartItemProps) {
       <div>
         <h3>{product.name}</h3>
         <p>${Number(product.price).toFixed(2)}</p>
-        <button className={styles['remove-btn']} onClick={handleRemove}>
-          Remove
-        </button>
+        <Button
+          buttonText="Remove"
+          onClick={handleRemove}
+          variant="danger"
+        />
       </div>
     </div>
   );

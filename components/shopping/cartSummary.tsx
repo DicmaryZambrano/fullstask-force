@@ -4,6 +4,7 @@ import { Product } from '@/types/types';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/shopping/cartSummary.module.css';
+import Button from '@/components/actionButton'
 
 interface CartSummaryProps {
   products: Product[];
@@ -25,12 +26,10 @@ export default function CartSummary({
           <strong>Total:</strong> US${total.toFixed(2)}
         </p>
         <Link href='/checkout'>
-          <button
+          <Button
+            buttonText="Proceed to Pay"
             disabled={products.length === 0}
-            className={styles['btn-pay']}
-          >
-            Proceed to Pay
-          </button>
+          />
         </Link>
       </div>
     </aside>
