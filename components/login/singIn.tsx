@@ -25,6 +25,8 @@ export function SignIn() {
     if (result?.error) {
       setError('Invalid credentials, Try again!');
     } else {
+      // Forzamos que se revaliden los datos de la sesión antes de redirigir:
+      router.refresh();
       router.push('/');
     }
   };
@@ -32,23 +34,23 @@ export function SignIn() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <input
-        type='email'
-        name='email'
-        placeholder='Enter your email'
+        type="email"
+        name="email"
+        placeholder="Enter your email"
         required
         className={styles.input}
       />
       <input
-        type='password'
-        name='password'
-        placeholder='Enter your password'
+        type="password"
+        name="password"
+        placeholder="Enter your password"
         required
         className={styles.input}
       />
 
       {error && <p className={styles.error}>{error}</p>}
 
-      <Button buttonText='Sign in' type='submit' />
+      <Button buttonText="Sign in" type="submit" />
     </form>
   );
 }
