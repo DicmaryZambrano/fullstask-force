@@ -10,15 +10,13 @@ export default async function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={`${roboto.variable} ${katibeh.variable}`}>
+  
         <SessionProvider>
           <div className={styles.dashboardLayout}>
             <SideNav />
             <main className={styles.mainContent}>{children}</main>
           </div>
         </SessionProvider>
-      </body>
-    </html>
+      
   );
 }
