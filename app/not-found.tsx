@@ -24,7 +24,13 @@ export default function NotFound() {
         <div className={styles.buttonsCon}>
           <div className={styles.actionLinkWrap}>
             <button onClick={() => history.back()} className={styles.linkButton}>Go Back</button>
-            <Link href="/" className={styles.linkButton}>Go to Home Page</Link>
+            <button
+  className={styles.linkButton}
+  onClick={() => window.location.replace('/')}
+>
+  Go to Home Page
+</button>
+
           </div>
         </div>
       </div>

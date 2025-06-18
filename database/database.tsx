@@ -219,19 +219,14 @@ export async function getReviewsByProductId(productId: string): Promise<ProductR
       ORDER BY r.created_at DESC;
     `;
 
-    if (!reviews || reviews.length === 0) {
-      notFound();
-    }
-
+  
     // Calculate the average rating
     const averageResult = await sql`
       SELECT COALESCE(AVG(rating), 0) AS average_rating
       FROM reviews
       WHERE product_id = ${productId};
     `;
- if (!averageResult || averageResult.length === 0) {
-      notFound();
-    }
+
 
     const average_rating = parseFloat(averageResult[0].average_rating);
 
@@ -328,9 +323,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
   try {
     const result = await sql`SELECT * FROM public.users WHERE email = ${email}`;
     
-    if (!result || result.length === 0) {
-      notFound();
-    }
+  
     return (result[0] as User) ;
   } catch (error) {
     console.error('Error looking for the user', error);
@@ -380,9 +373,7 @@ export async function updateUserById(data: {
       WHERE id = ${id}
       RETURNING id, email, first_name, last_name, phone_number, role, address, profile_picture_url
     `;
-     if (!result || result.length === 0) {
-      notFound();
-    }
+ 
     return result[0] as UserProfile;
   } catch (error) {
     console.error('Error updating user:', error);
