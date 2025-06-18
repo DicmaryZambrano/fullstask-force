@@ -59,9 +59,9 @@
 .skeletonTitle::after {
   content: '';
   position: absolute;
-  top: 0; 
-  right: 0; 
-  bottom: 0; 
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   transform: translateX(-100%);
   background-image: linear-gradient(
@@ -101,9 +101,9 @@
 .skeletonProduct::after {
   content: '';
   position: absolute;
-  top: 0; 
-  right: 0; 
-  bottom: 0; 
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   transform: translateX(-100%);
   background-image: linear-gradient(
@@ -129,9 +129,9 @@
 .skeletonText::after {
   content: '';
   position: absolute;
-  top: 0; 
-  right: 0; 
-  bottom: 0; 
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   transform: translateX(-100%);
   background-image: linear-gradient(
@@ -162,6 +162,10 @@
     width: 90%;
     padding: 2rem;
   }
+
+  .featuredCard img {
+    width: 18rem;
+  }
 }
 
 /* Mobile screens */
@@ -170,8 +174,8 @@
     grid-template-columns: 1fr;
   }
   .featuredCard {
-    width: 100%;
-    padding: 1rem;
+    width: 90%;
+    padding: 4rem 2rem;
   }
   .skeletonProductGrid {
     grid-template-columns: 1fr;
