@@ -1,11 +1,13 @@
+'use client';
+
 import Button from '../actionButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/navBar/searching.module.css';
-import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
 
-export default async function SearchingBar() {
-  const session = await auth();
+export default function SearchingBar() {
+  const { data: session } = useSession();
   const user = session?.user;
 
   return (
