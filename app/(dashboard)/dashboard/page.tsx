@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { auth } from '@/auth';
 import { getUserById } from '@/database/database';
 import PictureUploader from '@/components/dashboard/pictureUploader';
