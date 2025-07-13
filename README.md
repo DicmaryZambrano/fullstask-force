@@ -4,6 +4,11 @@
 
 Handcrafted Haven is an innovative web application that provides a digital marketplace for artisans to showcase and sell their handcrafted items. It fosters a thriving community of creators and conscious consumers, emphasizing sustainable consumption and customization.
 
+## Media
+
+[Demo Video](https://youtu.be/ustTAXR3P4U)
+[Cafted Haven Home Page](https://fullstask-force.vercel.app/)
+
 ## Core Features
 
 - **Seller Profiles**: Authenticated sellers can create profiles, share their stories, and list products.
